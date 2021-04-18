@@ -1,0 +1,13 @@
+{
+  "name": "notion-capture",
+  "version": "0.1.0",
+  "description": "Capture data from Notion into GitHub.",
+  "main": "index.js",
+  "repository": "https://github.com/mcmire/notion-capture",
+  "author": "Elliot Winkler <elliot.winkler@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "puppeteer": "^8.0.0"
+  }
+}
