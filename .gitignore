@@ -1,0 +1,5 @@
+/.env
+/node_modules
+/spec/examples.txt
+/spec/tmp
+/tmp
