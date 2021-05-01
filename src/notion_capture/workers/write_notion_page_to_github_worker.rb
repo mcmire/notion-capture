@@ -1,0 +1,37 @@
+require "json"
+require "sidekiq"
+
+module NotionCapture
+  class WriteNotionPageToGithubWorker
+    include Sidekiq::Worker
+
+    def initialize
+      @notion_client = NotionClient.new
+    end
+
+    def perform(notion_page_id)
+      @notion_page_id = notion_page_id
+      github_repo.write_and_add(file_path, JSON.generate(notion_page.content))
+    end
+
+    private
+
+    attr_reader :notion_client, :notion_page_id
+
+    def file_path
+      @file_path ||= "#{notion_page.path}.json"
+    end
+
+    def notion_page
+      @notion_page ||= NotionPage.new(notion_page_data)
+    end
+
+    def notion_page_data
+      @notion_page_data ||= notion_client.fetch_complete_page!(notion_page_id)
+    end
+
+    def github_repo
+      @github_repo ||= GithubRepoFactory.instance.fresh_or_updated
+    end
+  end
+end
