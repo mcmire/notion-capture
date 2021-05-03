@@ -3,17 +3,18 @@ require "faraday"
 module NotionCapture
   class NotionClient
     BASE_URL = "https://www.notion.so/api/v3"
-    TOKEN = ENV.fetch("NOTION_TOKEN")
-    USER_ID = ENV.fetch("NOTION_USER_ID")
 
     attr_reader :user_id
 
-    def initialize
+    def initialize(
+      token: ENV.fetch("NOTION_TOKEN"),
+      user_id: ENV.fetch("NOTION_USER_ID")
+    )
       @faraday = Faraday.new(
         url: BASE_URL,
-        headers: { "Cookie" => "token_v2=#{TOKEN}" }
+        headers: { "Cookie" => "token_v2=#{token}" }
       )
-      @user_id = USER_ID
+      @user_id = user_id
     end
 
     def fetch_spaces!

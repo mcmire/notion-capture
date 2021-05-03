@@ -19,7 +19,7 @@ module NotionCapture
 
     def commit_and_push!
       new_tree_oid = rugged_repo.index.write_tree
-      person = { name: 'notion-capture', time: Time.now }
+      person = { name: "notion-capture", time: Time.now }
       Rugged::Commit.create(
         rugged_repo,
         message: "Automatic sync from notion-capture",

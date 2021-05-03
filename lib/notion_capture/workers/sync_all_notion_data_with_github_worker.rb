@@ -9,13 +9,14 @@ module NotionCapture
   module Workers
     class SyncAllNotionDataWithGithubWorker
       include Sidekiq::Worker
+      sidekiq_options workflow: true
 
       def perform
         notion_page_summaries_by_id.each do |notion_page_id, notion_page_summary|
           github_page_summary = github_page_summaries_by_id[notion_page_id]
 
           if should_write_notion_page?(notion_page_summary, github_page_summary)
-            WriteNotionPageToGithubWorker.new.perform(notion_page_id)
+            WriteNotionPageToGithubWorker.perform_async(notion_page_id)
           end
         end
       end
