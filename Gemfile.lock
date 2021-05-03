@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/igorrKurr/sidekiq-hierarchy
+  revision: c5ecd61203052af811f8722f542902a51a4f029e
+  specs:
+    sidekiq-hierarchy (2.1.0)
+      connection_pool (~> 2.0)
+      sidekiq (> 3.3, < 7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -5,6 +13,8 @@ GEM
     backport (1.1.2)
     benchmark (0.1.1)
     connection_pool (2.2.5)
+    diff-lcs (1.4.4)
+    dotenv (2.7.6)
     e2mmap (0.1.0)
     faraday (1.4.1)
       faraday-excon (~> 1.1)
@@ -38,6 +48,19 @@ GEM
     reverse_markdown (2.0.0)
       nokogiri
     rexml (3.2.5)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
+    rspec-core (3.10.1)
+      rspec-support (~> 3.10.0)
+    rspec-expectations (3.10.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-mocks (3.10.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-support (3.10.2)
     rubocop (1.13.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -84,9 +107,12 @@ PLATFORMS
   arm64-darwin-20
 
 DEPENDENCIES
+  dotenv
   faraday
+  rspec
   rugged
   sidekiq
+  sidekiq-hierarchy!
   sinatra
   solargraph
 

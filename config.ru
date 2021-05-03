@@ -1,12 +1,12 @@
 require "sidekiq/web"
+require "sidekiq/hierarchy/web"
 
+map "/sidekiq" do
+  if ENV["APP_ENV"] == "production"
+    correct_username_digest = Digest::SHA256.hexdigest(ENV["SIDEKIQ_USERNAME"])
+    correct_password_digest = Digest::SHA256.hexdigest(ENV["SIDEKIQ_PASSWORD"])
 
-map '/sidekiq' do
-  if ENV['APP_ENV'] == 'production'
-    correct_username_digest = Digest::SHA256.hexdigest(ENV['SIDEKIQ_USERNAME'])
-    correct_password_digest = Digest::SHA256.hexdigest(ENV['SIDEKIQ_PASSWORD'])
-
-    use Rack::Auth::Basic, 'Protected Area' do |username, password|
+    use Rack::Auth::Basic, "Protected Area" do |username, password|
       given_username_digest = Digest::SHA256.hexdigest(username)
       given_password_digest = Digest::SHA256.hexdigest(password)
 
