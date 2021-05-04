@@ -4,7 +4,7 @@ require "rugged"
 require_relative "github_repo"
 
 module NotionCapture
-  module GithubRepoFactory
+  class GithubRepoFactory
     URL = "https://github.com/mcmire/notion-backup"
     DIRECTORY = Pathname.new("/tmp/notion-archive")
 

@@ -1,3 +1,5 @@
+require_relative "../sidekiq"
+
 module NotionCapture
   class PersistGithubRepoWorker
     include Sidekiq::Worker

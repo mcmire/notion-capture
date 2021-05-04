@@ -1,3 +1,6 @@
+require_relative "notion_client"
+require_relative "page_summary"
+
 module NotionCapture
   class NotionSpace
     def initialize

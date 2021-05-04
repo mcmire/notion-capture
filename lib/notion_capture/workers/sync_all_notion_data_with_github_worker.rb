@@ -1,8 +1,6 @@
-require "sidekiq"
-
-require_relative "fetch_indexed_github_page_summaries"
-require_relative "fetch_indexed_notion_page_summaries"
-require_relative "github_repo"
+require_relative "../github_repo_factory"
+require_relative "../notion_space"
+require_relative "../sidekiq"
 require_relative "write_notion_page_to_github_worker"
 
 module NotionCapture

@@ -1,3 +1,7 @@
+require "bundler/setup"
+
+Bundler.require(:development)
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -41,3 +45,5 @@ end
 Dir.glob(File.expand_path("support/**/*.rb", __dir__)).sort.each do |file|
   require file
 end
+
+require "notion_capture"

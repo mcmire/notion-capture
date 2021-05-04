@@ -1,32 +1,37 @@
-require "faraday"
+require "logger"
+require "http"
 
 module NotionCapture
   class NotionClient
     BASE_URL = "https://www.notion.so/api/v3"
 
-    attr_reader :user_id
+    def self.debug!
+      self.logger = Logger.new(STDOUT)
+    end
 
-    def initialize(
-      token: ENV.fetch("NOTION_TOKEN"),
-      user_id: ENV.fetch("NOTION_USER_ID")
-    )
-      @faraday = Faraday.new(
-        url: BASE_URL,
-        headers: { "Cookie" => "token_v2=#{token}" }
-      )
-      @user_id = user_id
+    singleton_class.attr_accessor :logger
+    self.logger = Logger.new("/dev/null")
+
+    def initialize
+      @http = HTTP
+        .use(logging: { logger: self.class.logger })
+        .headers(
+          "Accept" => "application/json",
+          "Cookie" => "token_v2=#{token}"
+        )
+    end
+
+    def user_id
+      @user_id ||= ENV.fetch("NOTION_USER_ID") do
+        raise ConfigurationError.new(
+          "NOTION_USER_ID is missing.\n" +
+          "Do you have an .env file and if so does it contain this variable?"
+        )
+      end
     end
 
     def fetch_spaces!
-      response = faraday.post("/getSpaces")
-
-      if response.success?
-        response
-      else
-        raise FailedRequestError.new(
-          "Could not retrieve Notion spaces. Response body:\n\n" + response.body
-        )
-      end
+      make_request!(:post, "/getSpaces")
     end
 
     def fetch_complete_page!(page_id)
@@ -40,11 +45,12 @@ module NotionCapture
           cursor: cursor,
           chunk_number: chunk_number
         )
-        deep_merge_into!(record_map, response.body.fetch("recordMap"))
-        cursor.merge!(response.body.fetch("cursor"))
+        json = response.parse
+        deep_merge_into!(record_map, json.fetch("recordMap"))
+        cursor.merge!(json.fetch("cursor"))
         chunk_number += 1
 
-        if response.body.fetch("cursor").fetch("stack").empty?
+        if json.fetch("cursor").fetch("stack").empty?
           break
         end
       end
@@ -54,18 +60,26 @@ module NotionCapture
 
     private
 
-    attr_reader :faraday
+    attr_reader :http
 
-    class FailedRequestError < StandardError; end
+    def token
+      @token ||= ENV.fetch("NOTION_TOKEN") do
+        raise ConfigurationError.new(
+          "NOTION_TOKEN is missing.\n" +
+          "Do you have an .env file and if so does it contain this variable?"
+        )
+      end
+    end
 
     def fetch_single_page_chunk!(
       page_id,
       cursor: { stack: [] },
       chunk_number: 0
     )
-      response = faraday.post(
+      make_request!(
+        :post,
         "/loadPageChunk",
-        body: {
+        json: {
           pageId: page_id,
           limit: 30,
           cursor: cursor,
@@ -73,12 +87,17 @@ module NotionCapture
           verticalColumns: false
         }
       )
+    end
 
-      if response.success?
+    def make_request!(method, path, **options)
+      response = http.public_send(method, BASE_URL + path, **options)
+
+      if response.status.success?
         response
       else
         raise FailedRequestError.new(
-          "Could not fetch Notion page. Response body:\n\n" + response.body
+          "#{method.upcase} #{path} failed with #{response.status.code}. " +
+          "Response body:\n\n" + response.body
         )
       end
     end
@@ -96,5 +115,8 @@ module NotionCapture
         end
       end
     end
+
+    class ConfigurationError < StandardError; end
+    class FailedRequestError < StandardError; end
   end
 end

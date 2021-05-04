@@ -1,5 +1,8 @@
 require "json"
-require "sidekiq"
+
+require_relative "../github_repo_factory"
+require_relative "../notion_client"
+require_relative "../sidekiq"
 
 module NotionCapture
   class WriteNotionPageToGithubWorker
