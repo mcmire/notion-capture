@@ -36,16 +36,15 @@ module NotionCapture
 
     def fetch_complete_page!(page_id)
       record_map = {}
-      cursor = { stack: [] }
+      cursor = { "stack" => [] }
       chunk_number = 0
 
       loop do
-        response = fetch_single_page_chunk!(
+        json = fetch_single_page_chunk!(
           page_id,
           cursor: cursor,
           chunk_number: chunk_number
         )
-        json = response.parse
         deep_merge_into!(record_map, json.fetch("recordMap"))
         cursor.merge!(json.fetch("cursor"))
         chunk_number += 1
@@ -55,7 +54,10 @@ module NotionCapture
         end
       end
 
-      record_map
+      {
+        "recordMap" => record_map,
+        "cursor" => { "stack" => [] }
+      }
     end
 
     private
@@ -83,7 +85,7 @@ module NotionCapture
           pageId: page_id,
           limit: 30,
           cursor: cursor,
-          chunkNumber: chunkNumber,
+          chunkNumber: chunk_number,
           verticalColumns: false
         }
       )
@@ -93,7 +95,7 @@ module NotionCapture
       response = http.public_send(method, BASE_URL + path, **options)
 
       if response.status.success?
-        response
+        response.parse
       else
         raise FailedRequestError.new(
           "#{method.upcase} #{path} failed with #{response.status.code}. " +
@@ -107,11 +109,13 @@ module NotionCapture
         # just go one level deep
         if target_hash[key].is_a?(Hash)
           target_hash[key].merge!(value)
-        else
+        elsif target_hash[key]
           raise ArgumentError.new(
             "target_hash[#{key.inspect}] is a #{target_hash[key].class} and " +
             "I don't know what to do with that"
           )
+        else
+          target_hash[key] = value
         end
       end
     end

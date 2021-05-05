@@ -15,8 +15,9 @@ end
 group :development do
   gem "climate_control"
   gem "dotenv"
-  gem "super_diff", github: "mcmire/super_diff", branch: "add-diff-elisions"
+  gem "pry-byebug"
   gem "rspec"
-  gem "webmock"
+  gem "super_diff", github: "mcmire/super_diff", branch: "add-diff-elisions"
   gem "vcr"
+  gem "webmock"
 end
