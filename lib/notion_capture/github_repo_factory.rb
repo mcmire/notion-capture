@@ -1,57 +1,66 @@
-require "singleton"
 require "rugged"
 
-require_relative "github_repo"
+require_relative("github_repo")
 
 module NotionCapture
   class GithubRepoFactory
-    URL = "https://github.com/mcmire/notion-backup"
-    DIRECTORY = Pathname.new("/tmp/notion-archive")
-
-    include Singleton
+    def initialize(remote_url:, local_directory:)
+      @remote_url = remote_url
+      @local_directory = Pathname.new(local_directory)
+    end
 
     def fresh_or_updated
-      rugged_repo =
-        (DIRECTORY.exist? && updated_rugged_repo) ||
-        cloned_rugged_repo
-
-      GithubRepo.new(rugged_repo)
+      @fresh_or_updated ||= GithubRepo.new(fresh_or_updated_rugged_repo)
     end
 
     def existing
-      GithubRepo.new(Rugged::Repository.new(DIRECTORY))
+      @existing ||= GithubRepo.new(Rugged::Repository.new(local_directory))
     end
 
     private
 
-    # Source: <https://github.com/libgit2/rugged/blob/003ef7134b50d35bb919e0f06e6d607906bcd0bf/test/merge_test.rb>
+    attr_reader :remote_url, :local_directory
+
+    def fresh_or_updated_rugged_repo
+      updated_rugged_repo || cloned_rugged_repo
+    end
+
     def updated_rugged_repo
-      repo = Rugged::Repository.new(DIRECTORY)
-      repo.fetch("origin")
-      ours = repo.rev_parse("main")
-      theirs = repo.rev_parse("origin/main")
-      analysis = repo.merge_analysis(theirs)
+      if local_directory.exist?
+        update_rugged_repo!
+      end
 
-      if analysis == :fastforward
-        base = repo.rev_parse(repo.merge_base(ours, theirs))
-        index = ours.tree.merge(theirs.tree, base.tree)
-
-        if index.conflicts?
-          # repo is in a funky state - start over
-          FileUtils.rm_rf(DIRECTORY)
-          return nil
-        else
-          return repo
-        end
+    rescue CannotUpdateRepoError
+      nil
+    rescue Rugged::RepositoryError => error
+      if error.message.start_with?("could not find repository ")
+        nil
       else
-        # repo is in a funky state - start over
-        FileUtils.rm_rf(DIRECTORY)
-        return nil
+        raise error
+      end
+    end
+
+    # Source: <https://github.com/libgit2/rugged/blob/003ef7134b50d35bb919e0f06e6d607906bcd0bf/test/merge_test.rb>
+    def update_rugged_repo!
+      Rugged::Repository.new(local_directory).tap do |repo|
+        repo.fetch("origin")
+        origin_main = repo.references["refs/remotes/origin/main"]
+        analysis = repo.merge_analysis(origin_main.target)
+
+        if analysis.include?(:normal) && analysis.include?(:fastforward)
+          repo.references.update("refs/heads/main", origin_main.target.oid)
+        else
+          local_directory.rmtree
+          raise CannotUpdateRepoError
+        end
       end
     end
 
     def cloned_rugged_repo
-      Rugged::Repository.clone_at(URL, DIRECTORY)
+      Rugged::Repository.clone_at(remote_url, local_directory)
+    end
+
+    class CannotUpdateRepoError < StandardError
     end
   end
 end

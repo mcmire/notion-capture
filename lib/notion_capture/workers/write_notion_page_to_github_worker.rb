@@ -1,8 +1,8 @@
 require "json"
 
-require_relative "../github_repo_factory"
-require_relative "../notion_client"
-require_relative "../sidekiq"
+require_relative("../github_repo_factory")
+require_relative("../notion_client")
+require_relative("../sidekiq")
 
 module NotionCapture
   class WriteNotionPageToGithubWorker
@@ -34,7 +34,7 @@ module NotionCapture
     end
 
     def github_repo
-      @github_repo ||= GithubRepoFactory.instance.fresh_or_updated
+      @github_repo ||= NotionCapture.github_repo_factory.fresh_or_updated
     end
   end
 end

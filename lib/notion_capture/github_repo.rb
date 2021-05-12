@@ -1,4 +1,4 @@
-require_relative "page_summary"
+require_relative("page_summary")
 
 module NotionCapture
   class GithubRepo
@@ -7,9 +7,9 @@ module NotionCapture
     end
 
     def page_summaries_by_id
-      search_for_blobs_by(name: /\.summary\.json/)
-        .map(&PageSummary.method(:from_git_blob))
-        .index_by(&:id)
+      search_for_blobs_by(name: /\.summary\.json/).map(&PageSummary.method(:from_git_blob)).inject({}) do |hash, page_summary|
+        hash.merge(page_summary.id => page_summary)
+      end
     end
 
     def write_and_add(file_path, content)
@@ -19,8 +19,13 @@ module NotionCapture
 
     def commit_and_push!
       new_tree_oid = rugged_repo.index.write_tree
-      person = { name: "notion-capture", time: Time.now }
-      Rugged::Commit.create(
+      person = {
+        name: "notion-capture",
+        email: "notion-capture@noreply.com",
+        time: Time.now
+      }
+
+      commit_oid = Rugged::Commit.create(
         rugged_repo,
         message: "Automatic sync from notion-capture",
         committer: person,
@@ -28,10 +33,10 @@ module NotionCapture
         parents: [rugged_repo.head.target],
         tree: new_tree_oid
       )
-      result = rugged_repo.push("origin")
-      if result.values.any?
-        raise "Could not push repo: #{result.values.join('; ')}"
-      end
+
+      rugged_repo.references.update("refs/heads/main", commit_oid)
+
+      rugged_repo.push("origin")
     end
 
     private
@@ -43,14 +48,17 @@ module NotionCapture
       # for more on the difference between preorder and postorder traversal
       latest_commit.tree.walk(:preorder).inject([]) do |array, (root, entry)|
         if name === entry[:name]
+
           array + [
-            Blob.new(
-              **entry,
+            BlobEntry.new(
+              oid: entry[:oid],
+              name: entry[:name],
               parent: root,
               rugged_repo: rugged_repo
             )
           ]
         else
+
           array
         end
       end
@@ -61,12 +69,11 @@ module NotionCapture
     end
 
     class BlobEntry
-      attr_reader :oid, :name, :content, :parent
+      attr_reader :oid, :name, :parent
 
-      def initialize(oid:, name:, content:, parent:, rugged_repo:)
+      def initialize(oid:, name:, parent:, rugged_repo:)
         @oid = oid
         @name = name
-        @content = content
         @parent = parent
         @rugged_repo = rugged_repo
       end
