@@ -60,14 +60,14 @@ RSpec.describe NotionCapture::GithubRepo do
       github_repo = described_class.new(rugged_repo)
 
       github_repo.write_and_add("foo.txt", "this is a foo")
-      github_repo.write_and_add("bar.txt", "this is a bar")
+      github_repo.write_and_add("foo/bar.txt", "this is a bar")
       expect(rugged_repo.index["foo.txt"]).to(be)
       expect(rugged_repo.lookup(rugged_repo.index["foo.txt"][:oid])).to(
         have_attributes(content: "this is a foo")
       )
 
-      expect(rugged_repo.index["bar.txt"]).to(be)
-      expect(rugged_repo.lookup(rugged_repo.index["bar.txt"][:oid])).to(
+      expect(rugged_repo.index["foo/bar.txt"]).to(be)
+      expect(rugged_repo.lookup(rugged_repo.index["foo/bar.txt"][:oid])).to(
         have_attributes(content: "this is a bar")
       )
     end

@@ -13,8 +13,11 @@ module NotionCapture
     end
 
     def write_and_add(file_path, content)
-      File.write(File.join(rugged_repo.workdir, file_path), content)
+      full_path = File.join(rugged_repo.workdir, file_path)
+      FileUtils.mkdir_p(File.dirname(full_path))
+      File.write(full_path, content)
       rugged_repo.index.add(file_path)
+      rugged_repo.index.write
     end
 
     def commit_and_push!

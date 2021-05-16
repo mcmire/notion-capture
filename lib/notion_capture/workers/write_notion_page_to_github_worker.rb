@@ -2,6 +2,7 @@ require "json"
 
 require_relative("../github_repo_factory")
 require_relative("../notion_client")
+require_relative("../notion_page")
 require_relative("../sidekiq")
 
 module NotionCapture
@@ -26,11 +27,15 @@ module NotionCapture
     end
 
     def notion_page
-      @notion_page ||= NotionPage.new(notion_page_data)
+      @notion_page ||= NotionPage.new(notion_page_data, notion_page_ancestry)
     end
 
     def notion_page_data
       @notion_page_data ||= notion_client.fetch_complete_page!(notion_page_id)
+    end
+
+    def notion_page_ancestry
+      @notion_page_ancestry ||= notion_client.fetch_page_ancestry!(notion_page_id)
     end
 
     def github_repo

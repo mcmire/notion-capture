@@ -13,19 +13,18 @@ module NotionCapture
     self.logger = Logger.new("/dev/null")
 
     def initialize
-      @http = HTTP
-        .use(logging: { logger: self.class.logger })
-        .headers(
-          "Accept" => "application/json",
-          "Cookie" => "token_v2=#{token}"
-        )
+      @http = HTTP.use(logging: {logger: self.class.logger}).headers(
+        "Accept" => "application/json",
+        "Cookie" => "token_v2=#{token}"
+      )
     end
 
     def user_id
       @user_id ||= ENV.fetch("NOTION_USER_ID") do
-        raise ConfigurationError.new(
-          "NOTION_USER_ID is missing.\n" +
-          "Do you have an .env file and if so does it contain this variable?"
+        raise(
+          ConfigurationError.new(
+            "NOTION_USER_ID is missing.\n" + "Do you have an .env file and if so does it contain this variable?"
+          )
         )
       end
     end
@@ -36,7 +35,7 @@ module NotionCapture
 
     def fetch_complete_page!(page_id)
       record_map = {}
-      cursor = { "stack" => [] }
+      cursor = {"stack" => []}
       chunk_number = 0
 
       loop do
@@ -45,6 +44,7 @@ module NotionCapture
           cursor: cursor,
           chunk_number: chunk_number
         )
+
         deep_merge_into!(record_map, json.fetch("recordMap"))
         cursor.merge!(json.fetch("cursor"))
         chunk_number += 1
@@ -54,10 +54,23 @@ module NotionCapture
         end
       end
 
-      {
-        "recordMap" => record_map,
-        "cursor" => { "stack" => [] }
-      }
+      record_map
+    end
+
+    def fetch_page_ancestry!(page_id)
+      json = make_request!(:post, "/getBacklinksForBlock", json: {blockId: page_id})
+
+      json.fetch("recordMap").fetch("block").inject([]) do |array, (id, block)|
+        value = block.fetch("value")
+        parent_table = value.fetch("parent_table")
+        parent_id = value.fetch("parent_id")
+
+        if parent_table == "block" && (index = array.find_index(parent_id))
+          array[0..index - 1] + [id] + array[index..-1]
+        else
+          array + [id]
+        end
+      end
     end
 
     private
@@ -66,18 +79,20 @@ module NotionCapture
 
     def token
       @token ||= ENV.fetch("NOTION_TOKEN") do
-        raise ConfigurationError.new(
-          "NOTION_TOKEN is missing.\n" +
-          "Do you have an .env file and if so does it contain this variable?"
+        raise(
+          ConfigurationError.new(
+            "NOTION_TOKEN is missing.\n" + "Do you have an .env file and if so does it contain this variable?"
+          )
         )
       end
     end
 
     def fetch_single_page_chunk!(
       page_id,
-      cursor: { stack: [] },
+      cursor: {stack: []},
       chunk_number: 0
     )
+
       make_request!(
         :post,
         "/loadPageChunk",
@@ -97,9 +112,10 @@ module NotionCapture
       if response.status.success?
         response.parse
       else
-        raise FailedRequestError.new(
-          "#{method.upcase} #{path} failed with #{response.status.code}. " +
-          "Response body:\n\n" + response.body
+        raise(
+          FailedRequestError.new(
+            "#{method.upcase} #{path} failed with #{response.status.code}. " + "Response body:\n\n" + response.body
+          )
         )
       end
     end
@@ -110,17 +126,22 @@ module NotionCapture
         if target_hash[key].is_a?(Hash)
           target_hash[key].merge!(value)
         elsif target_hash[key]
-          raise ArgumentError.new(
-            "target_hash[#{key.inspect}] is a #{target_hash[key].class} and " +
-            "I don't know what to do with that"
+          raise(
+            ArgumentError.new(
+              "target_hash[#{key.inspect}] is a #{target_hash[key].class} and " + "I don't know what to do with that"
+            )
           )
         else
+
           target_hash[key] = value
         end
       end
     end
 
-    class ConfigurationError < StandardError; end
-    class FailedRequestError < StandardError; end
+    class ConfigurationError < StandardError
+    end
+
+    class FailedRequestError < StandardError
+    end
   end
 end
