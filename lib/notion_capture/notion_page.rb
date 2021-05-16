@@ -8,7 +8,7 @@ module NotionCapture
     end
 
     def path
-      ancestry.reverse.join("/")
+      ancestry.reverse.join('/')
     end
 
     private

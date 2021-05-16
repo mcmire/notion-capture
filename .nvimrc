@@ -1,2 +1,2 @@
-let g:ale_fix_on_save = 1
-let g:ale_fixers['ruby'] = ['rubyfmt']
+"let g:ale_fix_on_save = 1
+"let g:ale_fixers['ruby'] = ['prettier']

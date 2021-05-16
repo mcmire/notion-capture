@@ -1,4 +1,4 @@
-require "sidekiq-hierarchy"
+require 'sidekiq-hierarchy'
 
 Sidekiq.configure_client do |config|
   config.client_middleware do |chain|

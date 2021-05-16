@@ -1,4 +1,4 @@
-require_relative "../sidekiq"
+require_relative '../sidekiq'
 
 module NotionCapture
   class PersistGithubRepoWorker

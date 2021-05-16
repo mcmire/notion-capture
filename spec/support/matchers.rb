@@ -4,6 +4,4 @@ module Specs
   end
 end
 
-RSpec.configure do |config|
-  config.include(Specs::Matchers)
-end
+RSpec.configure { |config| config.include(Specs::Matchers) }

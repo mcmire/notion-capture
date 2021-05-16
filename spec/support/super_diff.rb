@@ -1,5 +1,3 @@
-require "super_diff/rspec"
+require 'super_diff/rspec'
 
-SuperDiff.configure do |config|
-  config.diff_elision_enabled = true
-end
+SuperDiff.configure { |config| config.diff_elision_enabled = true }

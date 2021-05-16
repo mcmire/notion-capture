@@ -5,10 +5,7 @@ set -euo pipefail
 ### PROJECT SETUP ##############################################################
 
 provision-project() {
-  if ! has-executable solargraph; then
-    banner "Installing solargraph"
-    gem install solargraph
-  fi
+  true
 }
 
 ### DON'T MODIFY ANYTHING BELOW THIS LINE! #####################################

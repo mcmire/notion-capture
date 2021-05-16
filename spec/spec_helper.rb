@@ -1,4 +1,4 @@
-require "bundler/setup"
+require 'bundler/setup'
 
 Bundler.require(:development)
 
@@ -16,7 +16,7 @@ RSpec.configure do |config|
   # Allows RSpec to persist some state between runs in order to support
   # the `--only-failures` and `--next-failure` CLI options. We recommend
   # you configure your source control system to ignore this file.
-  config.example_status_persistence_file_path = "spec/examples.txt"
+  config.example_status_persistence_file_path = 'spec/examples.txt'
 
   # Limits the available syntax to the non-monkey patched syntax that is
   # recommended. For more details, see:
@@ -42,8 +42,9 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 end
 
-Dir.glob(File.expand_path("support/**/*.rb", __dir__)).sort.each do |file|
-  require file
-end
+Dir
+  .glob(File.expand_path('support/**/*.rb', __dir__))
+  .sort
+  .each { |file| require file }
 
-require "notion_capture"
+require 'notion_capture'

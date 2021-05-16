@@ -15,19 +15,20 @@ module Specs
       end
 
       def description
-        "be a JSON blob"
+        'be a JSON blob'
       end
 
       def matches?(actual_json)
         @actual_json = actual_json
-        !actual_parsed_json.nil? && values_match?(expected_partial_hash, actual_parsed_json)
+        !actual_parsed_json.nil? &&
+          values_match?(expected_partial_hash, actual_parsed_json)
       end
 
       def failure_message
         if actual_parsed_json
           "Expected value to be a JSON blob matching #{expected_partial_hash.inspect},\nbut got #{actual_json}."
         else
-          "Expected value to be JSON, but was not."
+          'Expected value to be JSON, but was not.'
         end
       end
 
@@ -42,7 +43,6 @@ module Specs
           begin
             @parsed_json = JSON.parse(actual_json)
           rescue JSON::ParseError
-
             @parsed_json = nil
           end
         end
