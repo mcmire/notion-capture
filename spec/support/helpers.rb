@@ -8,12 +8,17 @@ module Specs
           .tap { |dir| dir.rmtree if dir.exist? }
     end
 
-    def create_rugged_repo(directory:, files: {}, commit: false, origin: nil)
+    def create_rugged_repo(
+      directory:,
+      bare: false,
+      files: {},
+      commit: false,
+      origin: nil
+    )
       Rugged::Repository
-        .init_at(directory)
+        .init_at(directory, bare)
         .tap do |rugged_repo|
           add_commit_to(rugged_repo, files: files) if commit && !files.empty?
-
           rugged_repo.remotes.create('origin', origin) if origin
         end
     end
@@ -22,7 +27,7 @@ module Specs
       first_commit = rugged_repo.empty?
 
       files.each do |name, content|
-        path = Pathname.new(rugged_repo.workdir).join(name)
+        path = Pathname.new(rugged_repo.workdir || rugged_repo.path).join(name)
         path.parent.mkpath
         path.write(content)
       end

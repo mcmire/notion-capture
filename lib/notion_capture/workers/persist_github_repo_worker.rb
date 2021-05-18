@@ -1,19 +1,19 @@
-require_relative '../sidekiq'
+require_relative '../sidekiq-hierarchy'
 
 module NotionCapture
-  class PersistGithubRepoWorker
-    include Sidekiq::Worker
+  module Workers
+    class PersistGithubRepoWorker
+      include Sidekiq::Worker
 
-    def initialize
-      @github_repo = GithubRepoFactory.instance.existing
+      def perform
+        github_repo.commit_and_push!
+      end
+
+      private
+
+      def github_repo
+        @github_repo ||= NotionCapture.github_repo_factory.existing
+      end
     end
-
-    def perform
-      github_repo.commit_and_push!
-    end
-
-    private
-
-    attr_reader :github_repo
   end
 end

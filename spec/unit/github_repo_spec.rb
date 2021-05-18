@@ -1,54 +1,66 @@
 RSpec.describe NotionCapture::GithubRepo do
   describe '#page_summaries_by_id' do
-    it 'returns blobs representing *.summary.json files throughout the repo as a hash of blob id => PageSummary object' do
-      rugged_repo =
-        create_rugged_repo(
-          directory: local_repo_dir,
-          files: {
-            'foo.summary.json' =>
-              JSON.generate(
-                'id' => 'e188b9fe-c004-4ea2-b211-dc587d9ef1f4',
-                'last_edited_time' => 1_620_017_167_711,
+    context 'assuming the repo has a main branch' do
+      it 'returns blobs representing *.summary.json files throughout the repo as a hash of blob id => PageSummary object' do
+        rugged_repo =
+          create_rugged_repo(
+            directory: local_repo_dir,
+            files: {
+              'foo.summary.json' =>
+                JSON.generate(
+                  'id' => 'e188b9fe-c004-4ea2-b211-dc587d9ef1f4',
+                  'last_edited_time' => 1_620_017_167_711,
+                ),
+              'bar.summary.json' =>
+                JSON.generate(
+                  'id' => '427bbb3d-3928-4d1f-bcc0-38f7b02b4777',
+                  'last_edited_time' => 1_620_017_167_708,
+                ),
+              'foo/baz.summary.json' =>
+                JSON.generate(
+                  'id' => '7868b070-cf4d-460e-ae6b-3c407527f7fe',
+                  'last_edited_time' => 1_620_017_168_434,
+                ),
+              'some-other-file.json' => 'some other file',
+            },
+            commit: true,
+          )
+
+        github_repo = described_class.new(rugged_repo)
+
+        expect(github_repo.page_summaries_by_id).to(
+          match(
+            'e188b9fe-c004-4ea2-b211-dc587d9ef1f4' =>
+              an_object_having_attributes(
+                id: 'e188b9fe-c004-4ea2-b211-dc587d9ef1f4',
+                last_edited_time:
+                  a_time_around(Time.local(2021, 5, 2, 22, 46, 7.711)),
               ),
-            'bar.summary.json' =>
-              JSON.generate(
-                'id' => '427bbb3d-3928-4d1f-bcc0-38f7b02b4777',
-                'last_edited_time' => 1_620_017_167_708,
+            '427bbb3d-3928-4d1f-bcc0-38f7b02b4777' =>
+              an_object_having_attributes(
+                id: '427bbb3d-3928-4d1f-bcc0-38f7b02b4777',
+                last_edited_time:
+                  a_time_around(Time.local(2021, 5, 2, 22, 46, 7.708)),
               ),
-            'foo/baz.summary.json' =>
-              JSON.generate(
-                'id' => '7868b070-cf4d-460e-ae6b-3c407527f7fe',
-                'last_edited_time' => 1_620_017_168_434,
+            '7868b070-cf4d-460e-ae6b-3c407527f7fe' =>
+              an_object_having_attributes(
+                id: '7868b070-cf4d-460e-ae6b-3c407527f7fe',
+                last_edited_time:
+                  a_time_around(Time.local(2021, 5, 2, 22, 46, 8.434)),
               ),
-            'some-other-file.json' => 'some other file',
-          },
-          commit: true,
+          ),
         )
+      end
+    end
 
-      github_repo = described_class.new(rugged_repo)
+    context "when the repo doesn't have a main branch yet" do
+      it 'returns an empty hash' do
+        rugged_repo = create_rugged_repo(directory: local_repo_dir)
 
-      expect(github_repo.page_summaries_by_id).to(
-        match(
-          'e188b9fe-c004-4ea2-b211-dc587d9ef1f4' =>
-            an_object_having_attributes(
-              id: 'e188b9fe-c004-4ea2-b211-dc587d9ef1f4',
-              last_edited_time:
-                a_time_around(Time.local(2021, 5, 2, 22, 46, 7.711)),
-            ),
-          '427bbb3d-3928-4d1f-bcc0-38f7b02b4777' =>
-            an_object_having_attributes(
-              id: '427bbb3d-3928-4d1f-bcc0-38f7b02b4777',
-              last_edited_time:
-                a_time_around(Time.local(2021, 5, 2, 22, 46, 7.708)),
-            ),
-          '7868b070-cf4d-460e-ae6b-3c407527f7fe' =>
-            an_object_having_attributes(
-              id: '7868b070-cf4d-460e-ae6b-3c407527f7fe',
-              last_edited_time:
-                a_time_around(Time.local(2021, 5, 2, 22, 46, 8.434)),
-            ),
-        ),
-      )
+        github_repo = described_class.new(rugged_repo)
+
+        expect(github_repo.page_summaries_by_id).to eq({})
+      end
     end
   end
 
@@ -59,11 +71,11 @@ RSpec.describe NotionCapture::GithubRepo do
 
       github_repo.write_and_add('foo.txt', 'this is a foo')
       github_repo.write_and_add('foo/bar.txt', 'this is a bar')
+
       expect(rugged_repo.index['foo.txt']).to(be)
       expect(rugged_repo.lookup(rugged_repo.index['foo.txt'][:oid])).to(
         have_attributes(content: 'this is a foo'),
       )
-
       expect(rugged_repo.index['foo/bar.txt']).to(be)
       expect(rugged_repo.lookup(rugged_repo.index['foo/bar.txt'][:oid])).to(
         have_attributes(content: 'this is a bar'),
@@ -73,35 +85,56 @@ RSpec.describe NotionCapture::GithubRepo do
 
   describe '#commit_and_push!' do
     context 'assuming that the repo can be pushed' do
-      it 'creates a commit from the index and pushes the repo to the origin' do
-        rugged_repo =
-          create_rugged_repo(
-            directory: local_repo_dir,
-            files: {
-              'foo' => 'this is a foo',
-            },
-            commit: true,
-            origin: "file://#{remote_repo_dir}",
+      context 'assuming the remote repo has a main branch' do
+        it 'creates a commit from the index and pushes the repo to the origin' do
+          local_rugged_repo =
+            create_rugged_repo(
+              directory: local_repo_dir,
+              files: {
+                'foo' => 'this is a foo',
+              },
+              commit: true,
+              origin: "file://#{remote_repo_dir}",
+            )
+          local_repo_dir.join('bar').write('this is a bar')
+          local_rugged_repo.index.add_all
+          remote_rugged_repo =
+            Rugged::Repository.init_at(remote_repo_dir, :bare)
+          github_repo = described_class.new(local_rugged_repo)
+
+          github_repo.commit_and_push!
+
+          expect(remote_rugged_repo.references['refs/heads/main'].target).to(
+            have_attributes(message: 'Automatic sync from notion-capture'),
           )
+        end
+      end
 
-        local_repo_dir.join('bar').write('this is a bar')
-        rugged_repo.index.add_all
+      context "if the local repo doesn't have a main branch yet" do
+        it 'creates a main branch automatically before pushing it' do
+          local_rugged_repo =
+            create_rugged_repo(
+              directory: local_repo_dir,
+              origin: "file://#{remote_repo_dir}",
+            )
+          local_repo_dir.join('bar').write('this is a bar')
+          local_rugged_repo.index.add_all
+          remote_rugged_repo =
+            Rugged::Repository.init_at(remote_repo_dir, :bare)
+          github_repo = described_class.new(local_rugged_repo)
 
-        Rugged::Repository.init_at(remote_repo_dir, :bare)
+          github_repo.commit_and_push!
 
-        github_repo = described_class.new(rugged_repo)
-
-        github_repo.commit_and_push!
-
-        expect(rugged_repo.last_commit).to(
-          have_attributes(message: 'Automatic sync from notion-capture'),
-        )
+          expect(remote_rugged_repo.references['refs/heads/main'].target).to(
+            have_attributes(message: 'Automatic sync from notion-capture'),
+          )
+        end
       end
     end
 
-    context 'if the repo cannot be pushed' do
+    context 'if the repo cannot be pushed for some reason (e.g. the origin is invalid)' do
       it 'raises an error' do
-        rugged_repo =
+        local_rugged_repo =
           create_rugged_repo(
             directory: local_repo_dir,
             files: {
@@ -110,8 +143,7 @@ RSpec.describe NotionCapture::GithubRepo do
             commit: true,
             origin: 'file:///tmp/non-existent',
           )
-
-        github_repo = described_class.new(rugged_repo)
+        github_repo = described_class.new(local_rugged_repo)
 
         expect { github_repo.commit_and_push! }.to(
           raise_error(/failed to resolve path/),
