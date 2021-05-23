@@ -13,14 +13,18 @@ module NotionCapture
     def with_exclusive_repo
       File.open(lockfile_path, File::RDWR | File::CREAT) do |f|
         begin
-          # If multiple Sidekiq jobs are running, only let one of them access the
-          # repo at one time
+          # If multiple Sidekiq jobs are running, only let one of them access
+          # the repo at one time
           f.flock(File::LOCK_EX)
           if local_directory.exist?
             rugged_repo = Rugged::Repository.new(local_directory)
           else
             rugged_repo =
-              Rugged::Repository.clone_at(remote_url, local_directory)
+              Rugged::Repository.clone_at(
+                remote_url,
+                local_directory,
+                **repository_options,
+              )
             rugged_repo.head = 'refs/heads/main'
           end
           rugged_repo.index.clear
@@ -35,5 +39,21 @@ module NotionCapture
     private
 
     attr_reader :remote_url, :local_directory, :lockfile_path
+
+    def repository_options
+      if ENV.include?('GITHUB_USERNAME') && ENV.include?('GITHUB_PASSWORD')
+        {
+          credentials:
+            Rugged::Credentials::UserPassword.new(
+              {
+                username: ENV['GITHUB_USERNAME'],
+                password: ENV['GITHUB_PASSWORD'],
+              },
+            ),
+        }
+      else
+        {}
+      end
+    end
   end
 end
