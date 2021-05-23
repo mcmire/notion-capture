@@ -45,10 +45,8 @@ module NotionCapture
         {
           credentials:
             Rugged::Credentials::UserPassword.new(
-              {
-                username: ENV['GITHUB_USERNAME'],
-                password: ENV['GITHUB_PASSWORD'],
-              },
+              username: ENV['GITHUB_USERNAME'],
+              password: ENV['GITHUB_PASSWORD'],
             ),
         }
       else
