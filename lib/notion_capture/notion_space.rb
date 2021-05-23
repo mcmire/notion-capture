@@ -2,20 +2,20 @@ require_relative 'notion_client'
 
 module NotionCapture
   class NotionSpace
-    def initialize(notion_client)
-      @notion_client = notion_client
+    def initialize(data)
+      @data = data
+    end
+
+    def id
+      data.fetch('value').fetch('id')
     end
 
     def root_page_ids
-      notion_client
-        .fetch_spaces!
-        .fetch(notion_client.user_id)
-        .fetch('block')
-        .keys
+      data.fetch('value').fetch('pages')
     end
 
     private
 
-    attr_reader :notion_client
+    attr_reader :data
   end
 end

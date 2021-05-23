@@ -10,7 +10,10 @@ RSpec.describe(
             set_up_remote_repo(files: { 'foo.txt' => 'this is a foo' })
 
           # 12ba1ded-9372-45a3-adc9-ce985053d7a8 is "Test subpage"
-          described_class.new.perform('12ba1ded-9372-45a3-adc9-ce985053d7a8')
+          described_class.new.perform(
+            '12ba1ded-9372-45a3-adc9-ce985053d7a8',
+            '9292b46f-54ab-41db-b39d-17436d8f8f14',
+          )
 
           local_rugged_repo = Rugged::Repository.new(local_repo_dir)
           [local_rugged_repo, remote_rugged_repo].each do |repo|
@@ -22,7 +25,13 @@ RSpec.describe(
                 { path: 'foo.txt', content: 'this is a foo' },
                 {
                   path:
-                    '722ba1ef-e17a-4175-90c6-dd123ddf11d4/12ba1ded-9372-45a3-adc9-ce985053d7a8.json',
+                    %w[
+                      spaces
+                      9292b46f-54ab-41db-b39d-17436d8f8f14
+                      pages
+                      722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                      12ba1ded-9372-45a3-adc9-ce985053d7a8.json
+                    ].join('/'),
                   content:
                     a_json_blob_including(
                       'block' =>
@@ -43,7 +52,14 @@ RSpec.describe(
                 },
                 {
                   path:
-                    '722ba1ef-e17a-4175-90c6-dd123ddf11d4/12ba1ded-9372-45a3-adc9-ce985053d7a8/d0bc03ce-e9c0-467e-8bba-e9814399c423.json',
+                    %w[
+                      spaces
+                      9292b46f-54ab-41db-b39d-17436d8f8f14
+                      pages
+                      722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                      12ba1ded-9372-45a3-adc9-ce985053d7a8
+                      d0bc03ce-e9c0-467e-8bba-e9814399c423.json
+                    ].join('/'),
                   content:
                     a_json_blob_including(
                       'block' =>
@@ -76,7 +92,14 @@ RSpec.describe(
             remote_rugged_repo =
               set_up_remote_repo(
                 files: {
-                  '722ba1ef-e17a-4175-90c6-dd123ddf11d4/12ba1ded-9372-45a3-adc9-ce985053d7a8/d0bc03ce-e9c0-467e-8bba-e9814399c423.json' =>
+                  %w[
+                    spaces
+                    9292b46f-54ab-41db-b39d-17436d8f8f14
+                    pages
+                    722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                    12ba1ded-9372-45a3-adc9-ce985053d7a8
+                    d0bc03ce-e9c0-467e-8bba-e9814399c423.json
+                  ].join('/') =>
                     JSON.generate(
                       'block' => {
                         'd0bc03ce-e9c0-467e-8bba-e9814399c423' => {
@@ -92,7 +115,10 @@ RSpec.describe(
             last_commit_time = remote_rugged_repo.last_commit.time
 
             # 12ba1ded-9372-45a3-adc9-ce985053d7a8 is "Test subsubpage"
-            described_class.new.perform('d0bc03ce-e9c0-467e-8bba-e9814399c423')
+            described_class.new.perform(
+              'd0bc03ce-e9c0-467e-8bba-e9814399c423',
+              '9292b46f-54ab-41db-b39d-17436d8f8f14',
+            )
 
             local_rugged_repo = Rugged::Repository.new(local_repo_dir)
             [local_rugged_repo, remote_rugged_repo].each do |repo|
@@ -113,7 +139,14 @@ RSpec.describe(
             remote_rugged_repo =
               set_up_remote_repo(
                 files: {
-                  '722ba1ef-e17a-4175-90c6-dd123ddf11d4/12ba1ded-9372-45a3-adc9-ce985053d7a8/d0bc03ce-e9c0-467e-8bba-e9814399c423.json' =>
+                  %w[
+                    spaces
+                    9292b46f-54ab-41db-b39d-17436d8f8f14
+                    pages
+                    722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                    12ba1ded-9372-45a3-adc9-ce985053d7a8
+                    d0bc03ce-e9c0-467e-8bba-e9814399c423.json
+                  ].join('/') =>
                     JSON.generate(
                       'block' => {
                         'd0bc03ce-e9c0-467e-8bba-e9814399c423' => {
@@ -128,7 +161,10 @@ RSpec.describe(
               )
 
             # 12ba1ded-9372-45a3-adc9-ce985053d7a8 is "Test subsubpage"
-            described_class.new.perform('d0bc03ce-e9c0-467e-8bba-e9814399c423')
+            described_class.new.perform(
+              'd0bc03ce-e9c0-467e-8bba-e9814399c423',
+              '9292b46f-54ab-41db-b39d-17436d8f8f14',
+            )
 
             local_rugged_repo = Rugged::Repository.new(local_repo_dir)
             [local_rugged_repo, remote_rugged_repo].each do |repo|
@@ -146,7 +182,14 @@ RSpec.describe(
             remote_rugged_repo =
               set_up_remote_repo(
                 files: {
-                  '722ba1ef-e17a-4175-90c6-dd123ddf11d4/12ba1ded-9372-45a3-adc9-ce985053d7a8/d0bc03ce-e9c0-467e-8bba-e9814399c423.json' =>
+                  %w[
+                    spaces
+                    9292b46f-54ab-41db-b39d-17436d8f8f14
+                    pages
+                    722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                    12ba1ded-9372-45a3-adc9-ce985053d7a8
+                    d0bc03ce-e9c0-467e-8bba-e9814399c423.json
+                  ].join('/') =>
                     JSON.generate(
                       'block' => {
                         'd0bc03ce-e9c0-467e-8bba-e9814399c423' => {
@@ -162,7 +205,10 @@ RSpec.describe(
             last_commit_time = remote_rugged_repo.last_commit.time
 
             # 12ba1ded-9372-45a3-adc9-ce985053d7a8 is "Test subsubpage"
-            described_class.new.perform('d0bc03ce-e9c0-467e-8bba-e9814399c423')
+            described_class.new.perform(
+              'd0bc03ce-e9c0-467e-8bba-e9814399c423',
+              '9292b46f-54ab-41db-b39d-17436d8f8f14',
+            )
 
             local_rugged_repo = Rugged::Repository.new(local_repo_dir)
             [local_rugged_repo, remote_rugged_repo].each do |repo|
