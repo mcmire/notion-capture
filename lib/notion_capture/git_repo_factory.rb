@@ -41,14 +41,8 @@ module NotionCapture
     attr_reader :remote_url, :local_directory, :lockfile_path
 
     def repository_options
-      if ENV.include?('GITHUB_USERNAME') && ENV.include?('GITHUB_PASSWORD')
-        {
-          credentials:
-            Rugged::Credentials::UserPassword.new(
-              username: ENV['GITHUB_USERNAME'],
-              password: ENV['GITHUB_PASSWORD'],
-            ),
-        }
+      if NotionCapture.rugged_credentials
+        { credentials: NotionCapture.rugged_credentials }
       else
         {}
       end

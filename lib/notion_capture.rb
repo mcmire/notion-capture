@@ -21,4 +21,15 @@ module NotionCapture
 
     self.configuration = previous_configuration
   end
+
+  def self.rugged_credentials
+    if ENV.include?('GITHUB_USERNAME') && ENV.include?('GITHUB_PASSWORD')
+      Rugged::Credentials::UserPassword.new(
+        username: ENV['GITHUB_USERNAME'],
+        password: ENV['GITHUB_PASSWORD'],
+      )
+    else
+      nil
+    end
+  end
 end

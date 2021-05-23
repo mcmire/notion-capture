@@ -106,7 +106,18 @@ module NotionCapture
     end
 
     def push
-      rugged_repo.remotes['origin'].push(%w[refs/heads/main:refs/heads/main])
+      rugged_repo.remotes['origin'].push(
+        %w[refs/heads/main:refs/heads/main],
+        **push_options,
+      )
+    end
+
+    def push_options
+      if NotionCapture.rugged_credentials
+        { credentials: NotionCapture.rugged_credentials }
+      else
+        {}
+      end
     end
 
     class GitFile
