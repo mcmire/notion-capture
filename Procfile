@@ -1,2 +1,2 @@
-web: bin/rackup -p 80
+web: bin/puma
 sidekiq: bin/sidekiq -r ./lib/notion_capture.rb

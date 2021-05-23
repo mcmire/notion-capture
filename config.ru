@@ -4,7 +4,7 @@ require 'sidekiq/web'
 Dotenv.load
 
 map '/sidekiq' do
-  if ENV.fetch('APP_ENV') == 'production'
+  if ENV.fetch('RACK_ENV') == 'production'
     correct_username_digest =
       Digest::SHA256.hexdigest(ENV.fetch('SIDEKIQ_USERNAME'))
     correct_password_digest =
