@@ -1,5 +1,3 @@
-require_relative 'notion_client'
-
 module NotionCapture
   class NotionSpace
     attr_reader :id

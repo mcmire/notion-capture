@@ -19,7 +19,7 @@ module NotionCapture
 
     def child_page_ids
       data
-        .fetch('content')
+        .fetch('content', [])
         .inject([]) do |child_page_ids, block_id|
           block = blocks_by_id.fetch(block_id)
 
