@@ -1,6 +1,10 @@
-require 'rspec/core/rake_task'
-
-RSpec::Core::RakeTask.new(:spec)
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+  task(default: :spec)
+rescue LoadError
+  # don't worry about it
+end
 
 namespace :notion do
   # NOTE: This task is meant to be run with `bundle exec`
@@ -11,5 +15,3 @@ namespace :notion do
     puts 'Successfully kicked off Notion capture jobs.'
   end
 end
-
-task(default: :spec)
