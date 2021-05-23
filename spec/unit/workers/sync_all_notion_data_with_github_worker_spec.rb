@@ -19,21 +19,40 @@ RSpec.describe(
         [
           {
             name: '722ba1ef-e17a-4175-90c6-dd123ddf11d4.json',
-            path: '722ba1ef-e17a-4175-90c6-dd123ddf11d4.json',
+            path:
+              %w[
+                spaces
+                9292b46f-54ab-41db-b39d-17436d8f8f14
+                pages
+                722ba1ef-e17a-4175-90c6-dd123ddf11d4.json
+              ].join('/'),
             content:
               content_for_notion_page('722ba1ef-e17a-4175-90c6-dd123ddf11d4'),
           },
           {
             name: '12ba1ded-9372-45a3-adc9-ce985053d7a8.json',
             path:
-              '722ba1ef-e17a-4175-90c6-dd123ddf11d4/12ba1ded-9372-45a3-adc9-ce985053d7a8.json',
+              %w[
+                spaces
+                9292b46f-54ab-41db-b39d-17436d8f8f14
+                pages
+                722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                12ba1ded-9372-45a3-adc9-ce985053d7a8.json
+              ].join('/'),
             content:
               content_for_notion_page('12ba1ded-9372-45a3-adc9-ce985053d7a8'),
           },
           {
             name: 'd0bc03ce-e9c0-467e-8bba-e9814399c423.json',
             path:
-              '722ba1ef-e17a-4175-90c6-dd123ddf11d4/12ba1ded-9372-45a3-adc9-ce985053d7a8/d0bc03ce-e9c0-467e-8bba-e9814399c423.json',
+              %w[
+                spaces
+                9292b46f-54ab-41db-b39d-17436d8f8f14
+                pages
+                722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                12ba1ded-9372-45a3-adc9-ce985053d7a8
+                d0bc03ce-e9c0-467e-8bba-e9814399c423.json
+              ].join('/'),
             content:
               content_for_notion_page('d0bc03ce-e9c0-467e-8bba-e9814399c423'),
           },

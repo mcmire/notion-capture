@@ -2,12 +2,11 @@ require_relative 'notion_client'
 
 module NotionCapture
   class NotionSpace
-    def initialize(data)
-      @data = data
-    end
+    attr_reader :id
 
-    def id
-      data.fetch('value').fetch('id')
+    def initialize(id, data)
+      @id = id
+      @data = data
     end
 
     def root_page_ids
