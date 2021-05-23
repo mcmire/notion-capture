@@ -42,7 +42,7 @@ module Specs
         else
           begin
             @parsed_json = JSON.parse(actual_json)
-          rescue JSON::ParseError
+          rescue JSON::ParserError
             @parsed_json = nil
           end
         end

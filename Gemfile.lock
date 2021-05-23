@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/igorrKurr/sidekiq-hierarchy
-  revision: c5ecd61203052af811f8722f542902a51a4f029e
-  specs:
-    sidekiq-hierarchy (2.1.0)
-      connection_pool (~> 2.0)
-      sidekiq (> 3.3, < 7)
-
-GIT
   remote: https://github.com/mcmire/super_diff
   revision: 48a48b4f6b1c834aaf8b3574efa521a073039613
   branch: add-diff-elisions
@@ -111,7 +103,6 @@ DEPENDENCIES
   rspec
   rugged
   sidekiq
-  sidekiq-hierarchy!
   sinatra
   super_diff!
   vcr

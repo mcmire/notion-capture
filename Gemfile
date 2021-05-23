@@ -8,7 +8,6 @@ group :production do
   gem 'http'
   gem 'rugged'
   gem 'sidekiq'
-  gem 'sidekiq-hierarchy', github: 'igorrKurr/sidekiq-hierarchy'
   gem 'sinatra'
 end
 

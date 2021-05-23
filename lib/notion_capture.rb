@@ -10,14 +10,6 @@ module NotionCapture
     Workers::SyncAllNotionDataWithGithubWorker.perform_async
   end
 
-  def self.github_repo_factory
-    @github_repo_factory ||=
-      GithubRepoFactory.new(
-        remote_url: configuration.remote_url,
-        local_directory: configuration.local_directory,
-      )
-  end
-
   def self.configuration
     @configuration ||= Configuration.new
   end

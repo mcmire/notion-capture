@@ -3,7 +3,7 @@ require 'json'
 require_relative '../github_repo_factory'
 require_relative '../notion_client'
 require_relative '../notion_page'
-require_relative '../sidekiq-hierarchy'
+require_relative '../sidekiq'
 
 module NotionCapture
   module Workers

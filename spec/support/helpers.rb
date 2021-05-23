@@ -11,29 +11,41 @@ module Specs
     def create_rugged_repo(
       directory:,
       bare: false,
-      files: {},
+      remotes: {},
+      index: {},
       commit: false,
-      origin: nil
+      push_to: nil
     )
       Rugged::Repository
         .init_at(directory, bare)
         .tap do |rugged_repo|
-          add_commit_to(rugged_repo, files: files) if commit && !files.empty?
-          rugged_repo.remotes.create('origin', origin) if origin
+          add_files_to_index(rugged_repo, index) if !index.empty?
+          create_commit_from_index_of(rugged_repo) if commit && !index.empty?
+          remotes.each do |name, url|
+            rugged_repo.remotes.create(name.to_s, url)
+          end
+          push_to_remote(rugged_repo, push_to) if push_to
         end
     end
 
-    def add_commit_to(rugged_repo, files:)
-      first_commit = rugged_repo.empty?
+    private
 
+    def add_files_to_index(rugged_repo, files)
       files.each do |name, content|
         path = Pathname.new(rugged_repo.workdir || rugged_repo.path).join(name)
         path.parent.mkpath
         path.write(content)
+        rugged_repo.index.add(name)
+        rugged_repo.index.write
       end
+    end
 
-      rugged_repo.index.add_all
+    def create_commit_from_index_of(rugged_repo)
+      first_commit = rugged_repo.empty?
+
       new_tree_oid = rugged_repo.index.write_tree
+      rugged_repo.index.clear
+      now = Time.now
       commit_oid =
         Rugged::Commit.create(
           rugged_repo,
@@ -41,12 +53,12 @@ module Specs
           committer: {
             name: 'Nobody',
             email: 'nobody@noreply.com',
-            time: Time.now,
+            time: now,
           },
           author: {
             name: 'Nobody',
             email: 'nobody@noreply.com',
-            time: Time.now,
+            time: now,
           },
           parents: first_commit ? [] : [rugged_repo.last_commit],
           tree: new_tree_oid,
@@ -59,6 +71,10 @@ module Specs
       end
 
       rugged_repo.head = 'refs/heads/main' if first_commit
+    end
+
+    def push_to_remote(rugged_repo, remote_name)
+      rugged_repo.remotes[remote_name].push(%w[refs/heads/main:refs/heads/main])
     end
   end
 end
