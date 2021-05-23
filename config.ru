@@ -1,4 +1,7 @@
+require 'dotenv'
 require 'sidekiq/web'
+
+Dotenv.load
 
 map '/sidekiq' do
   if ENV.fetch('APP_ENV') == 'production'
