@@ -1,4 +1,5 @@
 require 'dotenv'
+require 'securerandom'
 require 'sidekiq/web'
 
 Dotenv.load
@@ -29,5 +30,12 @@ map '/sidekiq' do
     end
   end
 
+  File.open('/tmp/session.key', 'w') { |f| f.write(SecureRandom.hex(32)) }
+  use(
+    Rack::Session::Cookie,
+    secret: File.read('/tmp/session.key'),
+    same_site: true,
+    max_age: 86_400,
+  )
   run Sidekiq::Web
 end
