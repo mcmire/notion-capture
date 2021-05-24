@@ -42,8 +42,7 @@ module NotionCapture
 
       def should_save_notion_page?
         !saved_notion_page ||
-          fresh_notion_page.last_edited_time >
-            saved_notion_page.last_edited_time
+          fresh_notion_page.content != saved_notion_page.content
       end
 
       def saved_notion_page
