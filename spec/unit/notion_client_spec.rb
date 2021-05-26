@@ -963,22 +963,328 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
     end
   end
 
-  describe '#fetch_page_ancestry!' do
-    it 'returns the ancestry of the given page based on its backlinks' do
+  describe '#fetch_page_lineage!' do
+    it 'returns the lineage of the given page based on its backlinks' do
       notion_client = described_class.new
-      ancestry =
-        notion_client.fetch_page_ancestry!(
+      lineage =
+        notion_client.fetch_page_lineage!(
           'd0bc03ce-e9c0-467e-8bba-e9814399c423',
         )
 
-      expect(ancestry).to(
+      expect(lineage).to(
         eq(
           %w[
             d0bc03ce-e9c0-467e-8bba-e9814399c423
-            12ba1ded-9372-45a3-adc9-ce985053d7a8
+            0ecc4427-3c80-4b97-9e70-9f35ac4c5405
             722ba1ef-e17a-4175-90c6-dd123ddf11d4
           ],
         ),
+      )
+    end
+  end
+
+  describe '#fetch_collection_view!' do
+    it 'returns data about the given collection view id and its collection id' do
+      notion_client = described_class.new
+
+      data =
+        notion_client.fetch_collection_view!(
+          id: '80482a7b-195b-4665-82f1-0a7825e77476',
+          collection_id: 'b12633f5-5288-4fd6-b7c9-e726780fa287',
+        )
+
+      expect(data).to eq(
+        {
+          'result' => {
+            'type' => 'reducer',
+            'reducerResults' => {
+              'collection_group_results' => {
+                'type' => 'results',
+                'blockIds' => %w[
+                  42c4bd06-12ee-4808-9624-1e7e9e7f3a5f
+                  9211601a-9016-484a-8313-f54a459a5a2a
+                  2ec32fd1-d30a-4ae9-a79c-d4cc6aa0266a
+                ],
+                'total' => 3,
+              },
+            },
+          },
+          'recordMap' => {
+            'collection' => {
+              'b12633f5-5288-4fd6-b7c9-e726780fa287' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => 'b12633f5-5288-4fd6-b7c9-e726780fa287',
+                  'version' => 25,
+                  'name' => [['Test subtable']],
+                  'schema' => {
+                    'JcMG' => {
+                      'name' => 'Website',
+                      'type' => 'url',
+                    },
+                    '_WKf' => {
+                      'name' => 'Age',
+                      'type' => 'number',
+                    },
+                    'title' => {
+                      'name' => 'Name',
+                      'type' => 'title',
+                    },
+                  },
+                  'format' => {
+                    'collection_page_properties' => [
+                      { 'visible' => true, 'property' => '_WKf' },
+                    ],
+                  },
+                  'parent_id' => '227fd83a-546c-48f2-abde-14a08c43faae',
+                  'parent_table' => 'block',
+                  'alive' => true,
+                  'migrated' => true,
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
+            },
+            'collection_view' => {
+              '80482a7b-195b-4665-82f1-0a7825e77476' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '80482a7b-195b-4665-82f1-0a7825e77476',
+                  'version' => 1,
+                  'type' => 'list',
+                  'name' => 'List view',
+                  'parent_id' => '227fd83a-546c-48f2-abde-14a08c43faae',
+                  'parent_table' => 'block',
+                  'alive' => true,
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
+            },
+            'block' => {
+              '227fd83a-546c-48f2-abde-14a08c43faae' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '227fd83a-546c-48f2-abde-14a08c43faae',
+                  'version' => 16,
+                  'type' => 'collection_view',
+                  'view_ids' => %w[
+                    ce55eba9-ab50-4f33-ac0d-df6ba7132973
+                    80482a7b-195b-4665-82f1-0a7825e77476
+                  ],
+                  'collection_id' => 'b12633f5-5288-4fd6-b7c9-e726780fa287',
+                  'created_time' => 1_621_809_983_877,
+                  'last_edited_time' => 1_621_831_680_000,
+                  'parent_id' => '0ecc4427-3c80-4b97-9e70-9f35ac4c5405',
+                  'parent_table' => 'block',
+                  'alive' => true,
+                  'created_by_table' => 'notion_user',
+                  'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'last_edited_by_table' => 'notion_user',
+                  'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
+              '0ecc4427-3c80-4b97-9e70-9f35ac4c5405' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '0ecc4427-3c80-4b97-9e70-9f35ac4c5405',
+                  'version' => 53,
+                  'type' => 'page',
+                  'properties' => {
+                    'title' => [['Test subpage']],
+                  },
+                  'content' => %w[
+                    2644cda5-4619-4aed-9959-da51754a758b
+                    227fd83a-546c-48f2-abde-14a08c43faae
+                    d0bc03ce-e9c0-467e-8bba-e9814399c423
+                  ],
+                  'permissions' => [
+                    {
+                      'role' => 'editor',
+                      'type' => 'user_permission',
+                      'user_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                    },
+                  ],
+                  'created_time' => 1_621_809_900_000,
+                  'last_edited_time' => 1_621_816_980_000,
+                  'parent_id' => '722ba1ef-e17a-4175-90c6-dd123ddf11d4',
+                  'parent_table' => 'block',
+                  'alive' => true,
+                  'created_by_table' => 'notion_user',
+                  'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'last_edited_by_table' => 'notion_user',
+                  'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
+              '722ba1ef-e17a-4175-90c6-dd123ddf11d4' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '722ba1ef-e17a-4175-90c6-dd123ddf11d4',
+                  'version' => 66,
+                  'type' => 'page',
+                  'properties' => {
+                    'title' => [['Test page']],
+                  },
+                  'content' => %w[
+                    483d525b-cba6-4bdb-8186-01c4d6e00bee
+                    7ff62e3e-9299-4909-b970-6934358d75f6
+                    5b90ba9c-a3a0-40fe-888e-2b959b93ec27
+                    77dfebcc-38c4-47dd-854a-e2e97689e267
+                    0a3f2184-3980-4439-b60c-f666af3eefed
+                    1036c7b3-9df5-4023-8024-813b263d3666
+                    2806e26b-a025-4edd-a011-60d80a66124e
+                    77eafb0f-5099-4426-abfb-9d793f8fdfbc
+                    ab149808-a0ac-47f6-a5f8-721c7337d60d
+                    8b69445d-7391-4b1d-ad7c-efa58ec8dce4
+                    6e9fff9e-1888-4e1f-a4ba-eda709143bd5
+                    af89b008-da3c-4813-bdaf-b45cab2f056e
+                    f1e8cb34-b658-49e4-92ba-e6e4423cb500
+                    dbdad1f7-e4c9-4c73-8bab-0d9dab41050f
+                    6a8e38e5-9f08-4a01-9378-cb2e24137c3d
+                    8f237735-7d82-486f-a520-923f617101fe
+                    a80b0b66-5200-49b8-abf2-488a0ca0235b
+                    a095b789-2b85-4fd5-bec6-cb24cdc7780a
+                    14013023-9508-4655-9c87-827a25870fff
+                    6e5cb4e5-d110-4026-ba9c-bd334c7227dd
+                    0f53c1a3-fd68-4660-ace0-0fc46a6c601b
+                    12acc71c-9f64-45b8-bfe2-a5afe4403d75
+                    9f69c2de-1c06-4aae-a86a-c1ff1ee59e5a
+                    fe11635f-26c1-454f-9827-503ba9c4fab3
+                    716320fe-5104-4621-a302-c3dadb749b56
+                    01706360-846a-493d-9ee2-932aef1b4afc
+                    bce29ca1-6c65-40bb-91fc-b09abe1955ed
+                    a4b87d39-ad13-4167-801c-609dff8c05a1
+                    bf826320-91de-4371-a485-49ecae52a1a4
+                    565533fc-fa28-4a9e-856c-fe9fe26f4473
+                    beaf63c8-e288-4d24-a516-b96088589a71
+                    d9a36e8a-d45b-4449-852b-7a94ddada603
+                    9998b039-5612-4121-8101-7ea124b9507e
+                    94bd37b0-4bdc-4bc5-a18a-66881e687d13
+                    c025724a-f9e9-4721-84b4-ab6a863bd3a3
+                    977b83a9-1b1e-4739-8234-2f6006e54e53
+                    0ecc4427-3c80-4b97-9e70-9f35ac4c5405
+                  ],
+                  'permissions' => [
+                    {
+                      'role' => 'editor',
+                      'type' => 'user_permission',
+                      'user_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                    },
+                  ],
+                  'created_time' => 1_620_105_900_000,
+                  'last_edited_time' => 1_621_817_040_000,
+                  'parent_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                  'parent_table' => 'space',
+                  'alive' => true,
+                  'created_by_table' => 'notion_user',
+                  'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'last_edited_by_table' => 'notion_user',
+                  'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
+              '42c4bd06-12ee-4808-9624-1e7e9e7f3a5f' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '42c4bd06-12ee-4808-9624-1e7e9e7f3a5f',
+                  'version' => 49,
+                  'type' => 'page',
+                  'properties' => {
+                    'JcMG' => [['http://sally.com', [%w[a http://sally.com]]]],
+                    '_WKf' => [['57']],
+                    'title' => [['Sally']],
+                  },
+                  'created_time' => 1_621_809_983_877,
+                  'last_edited_time' => 1_621_810_020_000,
+                  'parent_id' => 'b12633f5-5288-4fd6-b7c9-e726780fa287',
+                  'parent_table' => 'collection',
+                  'alive' => true,
+                  'created_by_table' => 'notion_user',
+                  'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'last_edited_by_table' => 'notion_user',
+                  'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
+              '9211601a-9016-484a-8313-f54a459a5a2a' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '9211601a-9016-484a-8313-f54a459a5a2a',
+                  'version' => 34,
+                  'type' => 'page',
+                  'properties' => {
+                    'JcMG' => [['http://steve.com', [%w[a http://steve.com]]]],
+                    '_WKf' => [['23']],
+                    'title' => [['Steve']],
+                  },
+                  'created_time' => 1_621_809_983_877,
+                  'last_edited_time' => 1_621_810_020_000,
+                  'parent_id' => 'b12633f5-5288-4fd6-b7c9-e726780fa287',
+                  'parent_table' => 'collection',
+                  'alive' => true,
+                  'created_by_table' => 'notion_user',
+                  'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'last_edited_by_table' => 'notion_user',
+                  'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
+              '2ec32fd1-d30a-4ae9-a79c-d4cc6aa0266a' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '2ec32fd1-d30a-4ae9-a79c-d4cc6aa0266a',
+                  'version' => 30,
+                  'type' => 'page',
+                  'properties' => {
+                    'JcMG' => [['http://joe.com', [%w[a http://joe.com]]]],
+                    '_WKf' => [['12']],
+                    'title' => [['Joe']],
+                  },
+                  'created_time' => 1_621_809_983_877,
+                  'last_edited_time' => 1_621_810_020_000,
+                  'parent_id' => 'b12633f5-5288-4fd6-b7c9-e726780fa287',
+                  'parent_table' => 'collection',
+                  'alive' => true,
+                  'created_by_table' => 'notion_user',
+                  'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'last_edited_by_table' => 'notion_user',
+                  'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
+            },
+            'space' => {
+              '9292b46f-54ab-41db-b39d-17436d8f8f14' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                  'version' => 41,
+                  'name' => "Elliot's Notion",
+                  'permissions' => [
+                    {
+                      'role' => 'editor',
+                      'type' => 'user_permission',
+                      'user_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                    },
+                  ],
+                  'beta_enabled' => false,
+                  'pages' => %w[
+                    722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                    f124cfbb-fcc5-4129-9bc2-fdad0b135fe1
+                  ],
+                  'created_time' => 1_620_017_165_450,
+                  'last_edited_time' => 1_621_817_040_000,
+                  'created_by_table' => 'notion_user',
+                  'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'last_edited_by_table' => 'notion_user',
+                  'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'plan_type' => 'personal',
+                  'invite_link_enabled' => true,
+                },
+              },
+            },
+          },
+        },
       )
     end
   end

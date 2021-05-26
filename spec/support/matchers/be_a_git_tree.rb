@@ -9,10 +9,7 @@ module Specs
       include RSpec::Matchers::Composable
 
       def initialize(expected_blob_entries)
-        @expected_blob_entries =
-          an_array_matching(
-            expected_blob_entries.map { |entry| a_hash_including(entry) },
-          )
+        @expected_blob_entries = expected_blob_entries
       end
 
       def matches?(rugged_tree)
@@ -39,11 +36,18 @@ module Specs
             .walk(:preorder)
             .inject([]) do |array, (root, entry)|
               if entry[:type] == :blob
+                raw_content = rugged_tree.repo.lookup(entry[:oid]).content
+                content =
+                  begin
+                    JSON.parse(raw_content)
+                  rescue JSON::ParserError
+                    raw_content
+                  end
                 array + [
                   {
                     name: entry[:name],
                     path: root + entry[:name],
-                    content: rugged_tree.repo.lookup(entry[:oid]).content,
+                    content: content,
                   },
                 ]
               else

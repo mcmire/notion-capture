@@ -2,7 +2,7 @@ require 'sidekiq'
 
 require_relative '../notion_client'
 require_relative '../notion_space'
-require_relative 'sync_notion_page_to_github_worker'
+require_relative 'sync_notion_page_chunk_to_github_worker'
 
 module NotionCapture
   module Workers
@@ -12,7 +12,7 @@ module NotionCapture
       def perform
         notion_spaces.each do |notion_space|
           notion_space.root_page_ids.each do |notion_page_id|
-            SyncNotionPageToGithubWorker.perform_async(
+            SyncNotionPageChunkToGithubWorker.perform_async(
               notion_page_id,
               notion_space.id,
             )

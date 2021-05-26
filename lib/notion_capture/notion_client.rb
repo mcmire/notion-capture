@@ -61,7 +61,7 @@ module NotionCapture
       record_map
     end
 
-    def fetch_page_ancestry!(page_id)
+    def fetch_page_lineage!(page_id)
       json =
         make_request!(
           :post,
@@ -85,6 +85,29 @@ module NotionCapture
             array + [id]
           end
         end
+    end
+
+    def fetch_collection_view!(id:, collection_id:)
+      make_request!(
+        :post,
+        '/queryCollection',
+        json: {
+          collectionId: collection_id,
+          collectionViewId: id,
+          query: {},
+          loader: {
+            type: 'reducer',
+            reducers: {
+              collection_group_results: {
+                type: 'results',
+                limit: 50,
+              },
+            },
+            searchQuery: '',
+            userTimeZone: 'America/Denver',
+          },
+        },
+      )
     end
 
     private
