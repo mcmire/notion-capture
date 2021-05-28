@@ -98,7 +98,7 @@ Here are the outstanding items so far:
 
 ## Author/License
 
-All code is the author of Elliot Winkler (<elliot.winkler@gmail.com>)
+All code here is authored by Elliot Winkler (<elliot.winkler@gmail.com>)
 and is made available under the [public domain].
 
 [public domain]: ./LICENSE
