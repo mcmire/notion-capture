@@ -66,7 +66,11 @@ module NotionCapture
       def driver
         @selenium_driver ||=
           begin
+            if ENV.include?('GOOGLE_CHROME_SHIM')
+              Selenium::WebDriver::Chrome.path = ENV['GOOGLE_CHROME_SHIM']
+            end
             Webdrivers::Chromedriver.update
+
             Selenium::WebDriver.for(
               :chrome,
               options: chrome_options,
