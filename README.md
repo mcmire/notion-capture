@@ -81,17 +81,25 @@ You will also have an opportunity to fill in the following pieces of data:
  A username to access the Sidekiq Web UI at
  <https://your-app-name.herokuapp.com/sidekiq>.
 
-Finally, once the app is successfully deployed,
-visit the dashboard page for the app.
-Then go to the Dynos section.
-You should see the following list of dynos;
-make sure they are all turned on:
+Once the app is successfully deployed,
+visit the dashboard page for the app,
+then:
 
-* `web`
-* `sidekiq`
-* `clock`
+1. Go to the Addons section,
+   click on Heroku Scheduler,
+   click on Create Job,
+   select "Every day at",
+   choosing an appropriate time,
+   and fill in Run Command with `rake notion:capture`.
+2. Now go back to the main page,
+   and navigate to the Dynos section.
+   You should see the following list of dynos;
+   make sure they are all turned on:
 
-Now you are ready to go.
+   * `web`
+   * `sidekiq`
+
+That's it!
 
 ### Accessing the job queue
 

@@ -34,5 +34,5 @@
       "description": "A password to access the Sidekiq Web UI."
     }
   },
-  "addons": ["heroku-redis"]
+  "addons": ["heroku-redis", "heroku-scheduler"]
 }
