@@ -66,9 +66,9 @@ module NotionCapture
       def driver
         @selenium_driver ||=
           begin
+            Webdrivers::Chromedriver.update
             options = options = Selenium::WebDriver::Chrome::Options.new
-
-            # options.add_argument('--headless')
+            options.add_argument('--headless')
             driver = Selenium::WebDriver.for(:chrome, options: options)
           end
       end
