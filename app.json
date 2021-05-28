@@ -1,0 +1,55 @@
+{
+  "name": "notion-capture",
+  "description": "Save all of your Notion data in GitHub",
+  "repository": "https://github.com/mcmire/notion-capture",
+  "keywords": ["notion"],
+  "buildpacks": [
+    { "url": "heroku/ruby" },
+    { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" }
+  ],
+  "env": {
+    "GITHUB_USERNAME": {
+      "description": "Your GitHub username. This will be used to access a notion-backup repo in your account."
+    },
+    "GITHUB_PASSWORD": {
+      "description": "A personal access token you've created in your GitHub settings. This will be used to access a notion-backup repo in your account."
+    },
+    "GITHUB_REPO_NAME": {
+      "description": "The name of your repo that will ultimately hold the Notion data."
+    },
+    "NOTION_EMAIL": {
+      "description": "Your Notion email address. This will be used to retrieve an auth token from Notion's API."
+    },
+    "NOTION_PASSWORD": {
+      "description": "Your Notion password. This will be used to retrieve an auth token from Notion's API."
+    },
+    "NOTION_USER_ID": {
+      "description": "Your Notion user id. This will be used to access your data using Notion's API."
+    },
+    "SIDEKIQ_USERNAME": {
+      "description": "A username to access the Sidekiq Web UI.",
+      "value": "sidekiq"
+    },
+    "SIDEKIQ_PASSWORD": {
+      "description": "A password to access the Sidekiq Web UI."
+    }
+  },
+  "formation": [
+    {
+      "name": "web",
+      "quantity": 1,
+      "size": "free"
+    },
+    {
+      "name": "sidekiq",
+      "quantity": 1,
+      "size": "free"
+    },
+    {
+      "name": "clock",
+      "quantity": 1,
+      "size": "free"
+    }
+  ],
+  "addons": ["heroku-redis"]
+}
