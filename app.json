@@ -34,22 +34,5 @@
       "description": "A password to access the Sidekiq Web UI."
     }
   },
-  "formation": [
-    {
-      "name": "web",
-      "quantity": 1,
-      "size": "free"
-    },
-    {
-      "name": "sidekiq",
-      "quantity": 1,
-      "size": "free"
-    },
-    {
-      "name": "clock",
-      "quantity": 1,
-      "size": "free"
-    }
-  ],
   "addons": ["heroku-redis"]
 }
