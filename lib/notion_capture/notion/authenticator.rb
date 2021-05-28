@@ -67,10 +67,33 @@ module NotionCapture
         @selenium_driver ||=
           begin
             Webdrivers::Chromedriver.update
-            options = options = Selenium::WebDriver::Chrome::Options.new
-            options.add_argument('--headless')
-            driver = Selenium::WebDriver.for(:chrome, options: options)
+            Selenium::WebDriver.for(
+              :chrome,
+              options: chrome_options,
+              desired_capabilities: chrome_desired_capabilities,
+            )
           end
+      end
+
+      def chrome_options
+        Selenium::WebDriver::Chrome::Options.new.tap do |options|
+          options.add_argument('--headless')
+        end
+      end
+
+      def chrome_desired_capabilities
+        # ENV['GOOGLE_CHROME_SHIM'] is provided by Heroku's buildpack for Google
+        # Chrome
+        desired_capabilities_options =
+          if ENV.include?('GOOGLE_CHROME_SHIM')
+            { 'chromeOptions' => { 'binary' => ENV['GOOGLE_CHROME_SHIM'] } }
+          else
+            {}
+          end
+
+        Selenium::WebDriver::Remote::Capabilities.chrome(
+          desired_capabilities_options,
+        )
       end
     end
   end
