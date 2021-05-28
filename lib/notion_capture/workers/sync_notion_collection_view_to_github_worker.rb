@@ -1,5 +1,7 @@
+require 'json'
+
 require_relative '../git_repo_factory'
-require_relative '../notion_client'
+require_relative '../notion'
 require_relative '../notion_collection_view'
 
 module NotionCapture
@@ -77,17 +79,13 @@ module NotionCapture
           NotionCollectionView.new(
             id: notion_collection_view_id,
             request_data:
-              notion_client.fetch_collection_view!(
+              Notion.client.fetch_collection_view!(
                 id: notion_collection_view_id,
                 collection_id: notion_collection_id,
               ),
             parent_page_lineage: parent_page_lineage,
             space_id: notion_space_id,
           )
-      end
-
-      def notion_client
-        @notion_client ||= NotionClient.new
       end
     end
   end

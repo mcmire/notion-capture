@@ -1,6 +1,6 @@
 require 'sidekiq'
 
-require_relative '../notion_client'
+require_relative '../notion'
 require_relative '../notion_space'
 require_relative 'sync_notion_page_chunk_to_github_worker'
 
@@ -24,15 +24,12 @@ module NotionCapture
 
       def notion_spaces
         @notion_spaces ||=
-          notion_client
+          Notion
+            .client
             .fetch_spaces!
-            .fetch(notion_client.user_id)
+            .fetch(Notion::USER_ID)
             .fetch('space')
             .map { |space_id, data| NotionSpace.new(space_id, data) }
-      end
-
-      def notion_client
-        @notion_client ||= NotionClient.new
       end
     end
   end

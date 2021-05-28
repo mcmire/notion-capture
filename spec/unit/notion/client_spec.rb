@@ -1,7 +1,14 @@
-RSpec.describe NotionCapture::NotionClient, vcr: true do
+RSpec.describe NotionCapture::Notion::Client, vcr: true do
+  let(:token_file) do
+    Pathname.new('../../cassettes/test-token-file').expand_path(__dir__)
+  end
+
+  let(:authenticator) { NotionCapture::Notion::Authenticator.new(token_file) }
+
   describe '#fetch_spaces!' do
     it 'returns a bunch of data about the spaces, primarily what all of the pages are' do
-      notion_client = described_class.new
+      notion_client = described_class.new(authenticator)
+
       json = notion_client.fetch_spaces!
 
       expect(json).to(
@@ -10,52 +17,20 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
             a_hash_including(
               'block' =>
                 a_hash_including(
-                  '8d367ce1-db33-4367-8088-243c877c2954' =>
+                  '722ba1ef-e17a-4175-90c6-dd123ddf11d4' =>
                     a_hash_including(
                       'value' =>
                         a_hash_including(
-                          'id' => '8d367ce1-db33-4367-8088-243c877c2954',
-                          'last_edited_time' => 1_620_017_160_000,
+                          'id' => '722ba1ef-e17a-4175-90c6-dd123ddf11d4',
+                          'last_edited_time' => 1_621_817_040_000,
                         ),
                     ),
-                  '96906133-ad6c-4883-b1b3-f308ab59c3a8' =>
+                  'f124cfbb-fcc5-4129-9bc2-fdad0b135fe1' =>
                     a_hash_including(
                       'value' =>
                         a_hash_including(
-                          'id' => '96906133-ad6c-4883-b1b3-f308ab59c3a8',
-                          'last_edited_time' => 1_620_017_167_709,
-                        ),
-                    ),
-                  '5a6eabf3-2a2d-439d-968b-8435c91a754a' =>
-                    a_hash_including(
-                      'value' =>
-                        a_hash_including(
-                          'id' => '5a6eabf3-2a2d-439d-968b-8435c91a754a',
-                          'last_edited_time' => 1_620_017_167_708,
-                        ),
-                    ),
-                  '03be1b94-12ac-4bc3-be3d-ea2e30d02197' =>
-                    a_hash_including(
-                      'value' =>
-                        a_hash_including(
-                          'id' => '03be1b94-12ac-4bc3-be3d-ea2e30d02197',
-                          'last_edited_time' => 1_620_017_167_711,
-                        ),
-                    ),
-                  '265cf337-46a0-4300-a89a-2b10889efbca' =>
-                    a_hash_including(
-                      'value' =>
-                        a_hash_including(
-                          'id' => '265cf337-46a0-4300-a89a-2b10889efbca',
-                          'last_edited_time' => 1_620_017_167_712,
-                        ),
-                    ),
-                  '9af6fc30-4316-4c2b-9958-632c857a20d7' =>
-                    a_hash_including(
-                      'value' =>
-                        a_hash_including(
-                          'id' => '9af6fc30-4316-4c2b-9958-632c857a20d7',
-                          'last_edited_time' => 1_620_017_167_730,
+                          'id' => 'f124cfbb-fcc5-4129-9bc2-fdad0b135fe1',
+                          'last_edited_time' => 1_622_006_040_000,
                         ),
                     ),
                 ),
@@ -67,7 +42,8 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
 
   describe '#fetch_complete_page!' do
     it 'returns the complete content of the page' do
-      notion_client = described_class.new
+      notion_client = described_class.new(authenticator)
+
       json =
         notion_client.fetch_complete_page!(
           '722ba1ef-e17a-4175-90c6-dd123ddf11d4',
@@ -81,7 +57,7 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
                 'role' => 'editor',
                 'value' => {
                   'id' => '722ba1ef-e17a-4175-90c6-dd123ddf11d4',
-                  'version' => 59,
+                  'version' => 66,
                   'type' => 'page',
                   'properties' => {
                     'title' => [['Test page']],
@@ -123,6 +99,7 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
                     94bd37b0-4bdc-4bc5-a18a-66881e687d13
                     c025724a-f9e9-4721-84b4-ab6a863bd3a3
                     977b83a9-1b1e-4739-8234-2f6006e54e53
+                    0ecc4427-3c80-4b97-9e70-9f35ac4c5405
                   ],
                   'permissions' => [
                     {
@@ -132,7 +109,7 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
                     },
                   ],
                   'created_time' => 1_620_105_900_000,
-                  'last_edited_time' => 1_620_105_960_000,
+                  'last_edited_time' => 1_621_817_040_000,
                   'parent_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
                   'parent_table' => 'space',
                   'alive' => true,
@@ -147,13 +124,17 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
                 'role' => 'editor',
                 'value' => {
                   'id' => '483d525b-cba6-4bdb-8186-01c4d6e00bee',
-                  'version' => 9,
+                  'version' => 147,
                   'type' => 'text',
                   'properties' => {
-                    'title' => [['A']],
+                    'title' => [
+                      [
+                        'This page has more than 30 blocks in it, so that the endpoint is forced to paginate.',
+                      ],
+                    ],
                   },
                   'created_time' => 1_620_105_900_000,
-                  'last_edited_time' => 1_620_105_900_000,
+                  'last_edited_time' => 1_621_817_040_000,
                   'parent_id' => '722ba1ef-e17a-4175-90c6-dd123ddf11d4',
                   'parent_table' => 'block',
                   'alive' => true,
@@ -921,13 +902,46 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
                   'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
                 },
               },
+              '0ecc4427-3c80-4b97-9e70-9f35ac4c5405' => {
+                'role' => 'editor',
+                'value' => {
+                  'id' => '0ecc4427-3c80-4b97-9e70-9f35ac4c5405',
+                  'version' => 53,
+                  'type' => 'page',
+                  'properties' => {
+                    'title' => [['Test subpage']],
+                  },
+                  'content' => %w[
+                    2644cda5-4619-4aed-9959-da51754a758b
+                    227fd83a-546c-48f2-abde-14a08c43faae
+                    d0bc03ce-e9c0-467e-8bba-e9814399c423
+                  ],
+                  'permissions' => [
+                    {
+                      'role' => 'editor',
+                      'type' => 'user_permission',
+                      'user_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                    },
+                  ],
+                  'created_time' => 1_621_809_900_000,
+                  'last_edited_time' => 1_621_816_980_000,
+                  'parent_id' => '722ba1ef-e17a-4175-90c6-dd123ddf11d4',
+                  'parent_table' => 'block',
+                  'alive' => true,
+                  'created_by_table' => 'notion_user',
+                  'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'last_edited_by_table' => 'notion_user',
+                  'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
+                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                },
+              },
             },
             'space' => {
               '9292b46f-54ab-41db-b39d-17436d8f8f14' => {
                 'role' => 'editor',
                 'value' => {
                   'id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
-                  'version' => 10,
+                  'version' => 41,
                   'name' => "Elliot's Notion",
                   'permissions' => [
                     {
@@ -938,16 +952,11 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
                   ],
                   'beta_enabled' => false,
                   'pages' => %w[
-                    8d367ce1-db33-4367-8088-243c877c2954
-                    96906133-ad6c-4883-b1b3-f308ab59c3a8
-                    5a6eabf3-2a2d-439d-968b-8435c91a754a
-                    03be1b94-12ac-4bc3-be3d-ea2e30d02197
-                    265cf337-46a0-4300-a89a-2b10889efbca
-                    9af6fc30-4316-4c2b-9958-632c857a20d7
                     722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                    f124cfbb-fcc5-4129-9bc2-fdad0b135fe1
                   ],
                   'created_time' => 1_620_017_165_450,
-                  'last_edited_time' => 1_620_105_900_000,
+                  'last_edited_time' => 1_621_817_040_000,
                   'created_by_table' => 'notion_user',
                   'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
                   'last_edited_by_table' => 'notion_user',
@@ -965,7 +974,8 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
 
   describe '#fetch_page_lineage!' do
     it 'returns the lineage of the given page based on its backlinks' do
-      notion_client = described_class.new
+      notion_client = described_class.new(authenticator)
+
       lineage =
         notion_client.fetch_page_lineage!(
           'd0bc03ce-e9c0-467e-8bba-e9814399c423',
@@ -985,7 +995,7 @@ RSpec.describe NotionCapture::NotionClient, vcr: true do
 
   describe '#fetch_collection_view!' do
     it 'returns data about the given collection view id and its collection id' do
-      notion_client = described_class.new
+      notion_client = described_class.new(authenticator)
 
       data =
         notion_client.fetch_collection_view!(

@@ -1,3 +1,5 @@
+require 'json'
+
 module NotionCapture
   class NotionPageChunk
     def self.collection_view_id_tuples_for(block)

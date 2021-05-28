@@ -1,5 +1,7 @@
+require 'json'
+
 require_relative '../git_repo_factory'
-require_relative '../notion_client'
+require_relative '../notion'
 require_relative '../notion_page_chunk'
 require_relative 'sync_notion_collection_view_to_github_worker'
 
@@ -81,14 +83,10 @@ module NotionCapture
         @fresh_notion_page_chunk ||=
           NotionPageChunk.new(
             id: notion_block_id,
-            request_data: notion_client.fetch_complete_page!(notion_block_id),
-            lineage: notion_client.fetch_page_lineage!(notion_block_id),
+            request_data: Notion.client.fetch_complete_page!(notion_block_id),
+            lineage: Notion.client.fetch_page_lineage!(notion_block_id),
             space_id: notion_space_id,
           )
-      end
-
-      def notion_client
-        @notion_client ||= NotionClient.new
       end
     end
   end

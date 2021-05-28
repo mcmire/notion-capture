@@ -1,3 +1,5 @@
+require 'json'
+
 module NotionCapture
   class NotionCollectionView
     attr_reader(

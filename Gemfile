@@ -8,8 +8,10 @@ gem 'dotenv'
 gem 'http'
 gem 'puma'
 gem 'rugged'
+gem 'selenium-webdriver'
 gem 'sidekiq'
 gem 'sinatra'
+gem 'webdrivers'
 
 group :development do
   gem 'climate_control'

@@ -1,6 +1,3 @@
-require_relative 'notion_capture/configuration'
-require_relative 'notion_capture/workers/sync_all_notion_data_with_github_worker'
-
 module NotionCapture
   ROOT = Pathname.new('..').expand_path(__dir__)
 
@@ -33,3 +30,6 @@ module NotionCapture
     end
   end
 end
+
+require_relative 'notion_capture/configuration'
+require_relative 'notion_capture/workers/sync_all_notion_data_with_github_worker'
