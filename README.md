@@ -81,6 +81,18 @@ You will also have an opportunity to fill in the following pieces of data:
  A username to access the Sidekiq Web UI at
  <https://your-app-name.herokuapp.com/sidekiq>.
 
+Finally, once the app is successfully deployed,
+visit the dashboard page for the app.
+Then go to the Dynos section.
+You should see the following list of dynos;
+make sure they are all turned on:
+
+* `web`
+* `sidekiq`
+* `clock`
+
+Now you are ready to go.
+
 ### Accessing the job queue
 
 As stated above,
