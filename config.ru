@@ -4,6 +4,10 @@ require 'sidekiq/web'
 
 Dotenv.load
 
+map '/keepalive' do
+  run(->(env) { [200, { 'Content-Type' => 'text/plain' }, ['OK']] })
+end
+
 map '/sidekiq' do
   if ENV.fetch('RACK_ENV') == 'production'
     correct_username_digest =

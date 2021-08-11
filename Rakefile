@@ -15,3 +15,8 @@ namespace :notion do
     puts 'Successfully kicked off Notion capture jobs.'
   end
 end
+
+task :keepalive do
+  response = Http.get("#{ENV.fetch('APPLICATION_HOST')}/keepalive")
+  raise 'Keepalive request failed' if !response.success?
+end
