@@ -4,7 +4,7 @@ require 'sidekiq/web'
 
 Dotenv.load
 
-map '/keepalive' do
+map '/' do
   run(->(env) { [200, { 'Content-Type' => 'text/plain' }, ['OK']] })
 end
 
