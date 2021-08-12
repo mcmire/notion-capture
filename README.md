@@ -4,7 +4,7 @@ This project connects to Notion's API using credentials you provide,
 downloads data underneath a space you provide,
 and syncs that data to a GitHub repo that you provide.
 Therefore, you can use Notion freely
-without the worry that your data is locked in forever.
+without worrying that your data is locked in forever.
 
 ## How it works
 
@@ -89,8 +89,8 @@ then:
    click on Heroku Scheduler,
    click on Create Job,
    select "Every day at",
-   choosing an appropriate time,
-   and fill in Run Command with `rake notion:capture`.
+   choosing a time of 12:00 AM UTC,
+   and fill in Run Command with `bundle exec rake notion:capture`.
 2. Now go back to the main page,
    and navigate to the Dynos section.
    You should see the following list of dynos;
@@ -99,7 +99,20 @@ then:
    * `web`
    * `sidekiq`
 
+Finally, since you've created a free app in Heroku,
+you need to make sure it never sleeps,
+this way the Rake task can run every day.
+There are various ways to do this,
+but the easiest way I've found is to use a service called [Kaffeine][kaffeine].
+Once your app is deployed,
+then go to this URL,
+enter your app name in the text box,
+choose a time such as 6:00 AM UTC,
+and submit.
+
 That's it!
+
+[kaffeine]: https://kaffeine.herokuapp.com/
 
 ### Accessing the job queue
 
@@ -117,7 +130,8 @@ in the `SIDEKIQ_USERNAME` and `SIDEKIQ_PASSWORD` environment variables you set a
 
 ## Development
 
-* Run `bin/setup` to start
+* Run `bin/setup` to get started
+* Run `bin/start-dev` to start the app and Sidekiq
 * Run `bundle exec rake` to run all tests
 
 ## Future changes
@@ -127,7 +141,7 @@ but I still have a few more things planned for it.
 Here are the outstanding items so far:
 
 * Delete content from repo that gets deleted on Notion
-* Add little API that blog repo can use to pull data
+* Add a little API that a blog repo can use to pull data
 
 ## Author/License
 
