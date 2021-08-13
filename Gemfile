@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
+# Address GHSA-jxhc-q857-3j6g
+gem 'addressable', '>= 2.8.0'
 gem 'dotenv'
 gem 'http'
 gem 'puma'
