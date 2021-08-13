@@ -143,6 +143,16 @@ Here are the outstanding items so far:
 * Delete content from repo that gets deleted on Notion
 * Add a little API that a blog repo can use to pull data
 
+## Inspiration
+
+In creating this repo I was inspired by and aided by some resources:
+
+* ["The journey of converting ZEIT's blog from MDX to a Notion backed blog"][zeit-notion-blog] by JJ Kasper
+* [The data model behind Notion][notion-data-model]
+
+[zeit-notion-blog]: https://www.youtube.com/watch?v=AMyhzrF2lj8
+[notion-data-model]: https://www.notion.so/blog/data-model-behind-notion
+
 ## Author/License
 
 All code here is authored by Elliot Winkler (<elliot.winkler@gmail.com>)
