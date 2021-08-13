@@ -15,6 +15,7 @@ RSpec.describe NotionCapture::NotionCollectionView do
 
       expect(notion_page_chunk.file_path).to eq(
         %w[
+          data
           spaces
           9292b46f-54ab-41db-b39d-17436d8f8f14
           pages

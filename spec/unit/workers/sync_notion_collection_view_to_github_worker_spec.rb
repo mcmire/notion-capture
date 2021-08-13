@@ -38,6 +38,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
                   name: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973.json',
                   path:
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -94,6 +95,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
               set_up_remote_repo(
                 files: {
                   %w[
+                    data
                     spaces
                     9292b46f-54ab-41db-b39d-17436d8f8f14
                     pages
@@ -145,6 +147,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
               set_up_remote_repo(
                 files: {
                   %w[
+                    data
                     spaces
                     9292b46f-54ab-41db-b39d-17436d8f8f14
                     pages
@@ -183,6 +186,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
                     name: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973.json',
                     path:
                       %w[
+                        data
                         spaces
                         9292b46f-54ab-41db-b39d-17436d8f8f14
                         pages

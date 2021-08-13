@@ -20,6 +20,7 @@ module NotionCapture
 
     def file_path
       [
+        'data',
         'spaces',
         space_id,
         *parent_page_lineage.reverse.flat_map { |page_id| ['pages', page_id] },

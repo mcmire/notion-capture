@@ -54,6 +54,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                     name: '0ecc4427-3c80-4b97-9e70-9f35ac4c5405.json',
                     path:
                       %w[
+                        data
                         spaces
                         9292b46f-54ab-41db-b39d-17436d8f8f14
                         pages
@@ -76,6 +77,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                     name: '80482a7b-195b-4665-82f1-0a7825e77476.json',
                     path:
                       %w[
+                        data
                         spaces
                         9292b46f-54ab-41db-b39d-17436d8f8f14
                         pages
@@ -110,6 +112,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                     name: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973.json',
                     path:
                       %w[
+                        data
                         spaces
                         9292b46f-54ab-41db-b39d-17436d8f8f14
                         pages
@@ -144,6 +147,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                     name: 'd0bc03ce-e9c0-467e-8bba-e9814399c423.json',
                     path:
                       %w[
+                        data
                         spaces
                         9292b46f-54ab-41db-b39d-17436d8f8f14
                         pages
@@ -179,6 +183,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                 set_up_remote_repo(
                   files: {
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -191,6 +196,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                         page_id: '0ecc4427-3c80-4b97-9e70-9f35ac4c5405',
                       ),
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -206,6 +212,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                           '80482a7b-195b-4665-82f1-0a7825e77476',
                       ),
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -221,6 +228,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                           'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
                       ),
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -264,6 +272,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                 set_up_remote_repo(
                   files: {
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -284,6 +293,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                         },
                       ),
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -299,6 +309,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                           '80482a7b-195b-4665-82f1-0a7825e77476',
                       ),
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -314,6 +325,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                           'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
                       ),
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -396,6 +408,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                     name: 'f124cfbb-fcc5-4129-9bc2-fdad0b135fe1.json',
                     path:
                       %w[
+                        data
                         spaces
                         9292b46f-54ab-41db-b39d-17436d8f8f14
                         pages
@@ -429,6 +442,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                     name: '5a900c7f-a495-4a29-b403-c8ae0356bcaa.json',
                     path:
                       %w[
+                        data
                         spaces
                         9292b46f-54ab-41db-b39d-17436d8f8f14
                         pages
@@ -472,6 +486,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                 set_up_remote_repo(
                   files: {
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -482,6 +497,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                         page_id: 'f124cfbb-fcc5-4129-9bc2-fdad0b135fe1',
                       ),
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -524,6 +540,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                 set_up_remote_repo(
                   files: {
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
@@ -542,6 +559,7 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                         },
                       ),
                     %w[
+                      data
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages

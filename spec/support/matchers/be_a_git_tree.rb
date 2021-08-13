@@ -9,7 +9,8 @@ module Specs
       include RSpec::Matchers::Composable
 
       def initialize(expected_blob_entries)
-        @expected_blob_entries = expected_blob_entries
+        @expected_blob_entries =
+          a_collection_containing_exactly(*expected_blob_entries)
       end
 
       def matches?(rugged_tree)
