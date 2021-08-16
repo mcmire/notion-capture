@@ -8,7 +8,7 @@ module Specs
     def tmp_dir
       @tmp_dir ||=
         Pathname
-          .new('../tmp')
+          .new('../../tmp')
           .expand_path(__dir__)
           .tap { |dir| dir.rmtree if dir.exist? }
     end
