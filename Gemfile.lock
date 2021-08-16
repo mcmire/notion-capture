@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/mcmire/super_diff
-  revision: 48a48b4f6b1c834aaf8b3574efa521a073039613
-  branch: add-diff-elisions
-  specs:
-    super_diff (0.7.0)
-      attr_extras (>= 6.2.4)
-      diff-lcs
-      patience_diff
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -95,6 +85,10 @@ GEM
       rack (~> 2.2)
       rack-protection (= 2.1.0)
       tilt (~> 2.0)
+    super_diff (0.8.0)
+      attr_extras (>= 6.2.4)
+      diff-lcs
+      patience_diff
     tilt (2.0.10)
     unf (0.1.4)
       unf_ext
@@ -125,10 +119,13 @@ DEPENDENCIES
   selenium-webdriver
   sidekiq
   sinatra
-  super_diff!
+  super_diff
   vcr
   webdrivers
   webmock
 
+RUBY VERSION
+   ruby 3.0.2p107
+
 BUNDLED WITH
-   2.2.16
+   2.2.23

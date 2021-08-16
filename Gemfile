@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+ruby '3.0.2'
+
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 # Address GHSA-jxhc-q857-3j6g
@@ -19,7 +21,7 @@ gem 'webdrivers'
 group :development do
   gem 'climate_control'
   gem 'rspec'
-  gem 'super_diff', github: 'mcmire/super_diff', branch: 'add-diff-elisions'
+  gem 'super_diff'
   gem 'vcr'
   gem 'webmock'
 end
