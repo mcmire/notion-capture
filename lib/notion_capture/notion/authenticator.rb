@@ -1,4 +1,3 @@
-require 'rexml/document'
 require 'webdrivers'
 require 'selenium-webdriver'
 
