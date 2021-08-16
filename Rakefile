@@ -7,9 +7,9 @@ rescue LoadError
 end
 
 namespace :notion do
-  # NOTE: This task is meant to be run with `bundle exec`
   desc 'Run Notion capture'
   task :capture do
+    require 'bundler/setup'
     require_relative 'lib/notion_capture'
     NotionCapture.run
     puts 'Successfully kicked off Notion capture jobs.'
