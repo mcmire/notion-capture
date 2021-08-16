@@ -8,6 +8,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'addressable', '>= 2.8.0'
 gem 'dotenv'
 gem 'http'
+gem 'pry-byebug'
 gem 'puma'
 gem 'rugged'
 gem 'selenium-webdriver'
@@ -17,7 +18,6 @@ gem 'webdrivers'
 
 group :development do
   gem 'climate_control'
-  gem 'pry-byebug'
   gem 'rspec'
   gem 'super_diff', github: 'mcmire/super_diff', branch: 'add-diff-elisions'
   gem 'vcr'

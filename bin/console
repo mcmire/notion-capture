@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+
+require 'dotenv'
+Dotenv.load
+
+require 'pry-byebug'
+
+require_relative '../lib/notion_capture'
+
+Pry.start
