@@ -19,8 +19,8 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
             'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
             'b12633f5-5288-4fd6-b7c9-e726780fa287',
             %w[
-              722ba1ef-e17a-4175-90c6-dd123ddf11d4
               0ecc4427-3c80-4b97-9e70-9f35ac4c5405
+              722ba1ef-e17a-4175-90c6-dd123ddf11d4
             ],
             '9292b46f-54ab-41db-b39d-17436d8f8f14',
           )
@@ -117,9 +117,6 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
                         ),
                     ),
                 },
-                # TODO: These paths are wrong!!
-                # It should be 722ba1ef-e17a-4175-90c6-dd123ddf11d4 -> 0ecc4427-3c80-4b97-9e70-9f35ac4c5405
-                # not 0ecc4427-3c80-4b97-9e70-9f35ac4c5405 -> 722ba1ef-e17a-4175-90c6-dd123ddf11d4
                 {
                   name: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973.json',
                   path:
@@ -128,9 +125,9 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
                       spaces
                       9292b46f-54ab-41db-b39d-17436d8f8f14
                       pages
-                      0ecc4427-3c80-4b97-9e70-9f35ac4c5405
-                      pages
                       722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                      pages
+                      0ecc4427-3c80-4b97-9e70-9f35ac4c5405
                       collection_views
                       ce55eba9-ab50-4f33-ac0d-df6ba7132973.json
                     ].join('/'),
@@ -185,9 +182,9 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
                     spaces
                     9292b46f-54ab-41db-b39d-17436d8f8f14
                     pages
-                    0ecc4427-3c80-4b97-9e70-9f35ac4c5405
-                    pages
                     722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                    pages
+                    0ecc4427-3c80-4b97-9e70-9f35ac4c5405
                     collection_views
                     ce55eba9-ab50-4f33-ac0d-df6ba7132973.json
                   ].join('/') =>
@@ -256,8 +253,8 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
               'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
               'b12633f5-5288-4fd6-b7c9-e726780fa287',
               %w[
-                722ba1ef-e17a-4175-90c6-dd123ddf11d4
                 0ecc4427-3c80-4b97-9e70-9f35ac4c5405
+                722ba1ef-e17a-4175-90c6-dd123ddf11d4
               ],
               '9292b46f-54ab-41db-b39d-17436d8f8f14',
             )
@@ -292,9 +289,9 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
                     spaces
                     9292b46f-54ab-41db-b39d-17436d8f8f14
                     pages
-                    0ecc4427-3c80-4b97-9e70-9f35ac4c5405
-                    pages
                     722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                    pages
+                    0ecc4427-3c80-4b97-9e70-9f35ac4c5405
                     collection_views
                     ce55eba9-ab50-4f33-ac0d-df6ba7132973.json
                   ].join('/') =>
@@ -358,8 +355,8 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
               'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
               'b12633f5-5288-4fd6-b7c9-e726780fa287',
               %w[
-                722ba1ef-e17a-4175-90c6-dd123ddf11d4
                 0ecc4427-3c80-4b97-9e70-9f35ac4c5405
+                722ba1ef-e17a-4175-90c6-dd123ddf11d4
               ],
               '9292b46f-54ab-41db-b39d-17436d8f8f14',
             )
@@ -454,9 +451,9 @@ RSpec.describe NotionCapture::Workers::SyncNotionCollectionViewToGithubWorker do
                         spaces
                         9292b46f-54ab-41db-b39d-17436d8f8f14
                         pages
-                        0ecc4427-3c80-4b97-9e70-9f35ac4c5405
-                        pages
                         722ba1ef-e17a-4175-90c6-dd123ddf11d4
+                        pages
+                        0ecc4427-3c80-4b97-9e70-9f35ac4c5405
                         collection_views
                         ce55eba9-ab50-4f33-ac0d-df6ba7132973.json
                       ].join('/'),
