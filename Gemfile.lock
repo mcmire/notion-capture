@@ -114,6 +114,7 @@ DEPENDENCIES
   http
   pry-byebug
   puma
+  rake
   rspec
   rugged
   selenium-webdriver
