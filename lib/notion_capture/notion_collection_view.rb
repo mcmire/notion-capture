@@ -33,6 +33,21 @@ module NotionCapture
       data.fetch('name')
     end
 
+    def child_page_chunk_ids
+      collection_group_results
+        .fetch('blockIds')
+        .inject([]) do |ids, id|
+          block = blocks_by_id.fetch(id)
+          value = block.fetch('value')
+          if value.fetch('type') == 'page' && value.include?('properties') &&
+               value['properties'].include?('title')
+            ids + [id]
+          else
+            ids
+          end
+        end
+    end
+
     private
 
     def breadcrumbs
@@ -47,8 +62,20 @@ module NotionCapture
       @collection_views_by_id ||= records_by_type.fetch('collection_view')
     end
 
+    def blocks_by_id
+      @blocks_by_id ||= records_by_type.fetch('block')
+    end
+
     def records_by_type
       @records_by_type ||= request_data.fetch('recordMap')
+    end
+
+    def collection_group_results
+      @collection_group_results ||=
+        request_data
+          .fetch('result')
+          .fetch('reducerResults')
+          .fetch('collection_group_results')
     end
   end
 end

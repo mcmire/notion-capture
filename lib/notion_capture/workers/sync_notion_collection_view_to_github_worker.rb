@@ -34,6 +34,10 @@ module NotionCapture
             end
           end
         end
+
+        fresh_notion_collection_view.child_page_chunk_ids.each do |id|
+          SyncNotionPageChunkToGithubWorker.perform_async(id, notion_space_id)
+        end
       end
 
       private

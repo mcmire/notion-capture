@@ -28,6 +28,7 @@ module NotionCapture
         @verb = verb
         @path = path
         @options = options
+        @authenticator = authenticator
 
         @http =
           HTTP
@@ -49,7 +50,7 @@ module NotionCapture
 
       private
 
-      attr_reader :verb, :path, :options, :http, :auth_token
+      attr_reader :verb, :path, :options, :authenticator, :http, :auth_token
 
       def make_request!
         response = make_request
@@ -72,8 +73,8 @@ module NotionCapture
 
         def self.create(response)
           allocate.tap do |error|
-            error.__send__(:initialize)
             error.response = response
+            error.__send__(:initialize)
           end
         end
 
