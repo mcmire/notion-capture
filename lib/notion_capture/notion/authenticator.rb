@@ -1,6 +1,6 @@
+require 'rexml/document'
 require 'webdrivers'
 require 'selenium-webdriver'
-require 'rexml/document'
 
 module NotionCapture
   module Notion
