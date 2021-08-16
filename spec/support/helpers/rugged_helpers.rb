@@ -1,5 +1,10 @@
 module Specs
-  module Helpers
+  module RuggedHelpers
+    def self.add_to_example_groups(config)
+      config.include(self)
+      config.before { tmp_dir.rmtree if tmp_dir.exist? }
+    end
+
     def tmp_dir
       @tmp_dir ||=
         Pathname
@@ -26,6 +31,14 @@ module Specs
           end
           push_to_remote(rugged_repo, push_to) if push_to
         end
+    end
+
+    def commits_for(repo)
+      Rugged::Walker.walk(
+        repo,
+        show: repo.last_commit.oid,
+        sort: Rugged::SORT_DATE | Rugged::SORT_TOPO,
+      ).to_a
     end
 
     private
@@ -79,8 +92,4 @@ module Specs
   end
 end
 
-RSpec.configure do |config|
-  config.include(Specs::Helpers)
-
-  config.before { tmp_dir.rmtree if tmp_dir.exist? }
-end
+RSpec.configure { |config| Specs::RuggedHelpers.add_to_example_groups(config) }
