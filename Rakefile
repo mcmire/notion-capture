@@ -10,12 +10,8 @@ namespace :notion do
   desc 'Run Notion capture'
   task :capture do
     require 'bundler/setup'
-    require 'dotenv'
-    Dotenv.load
     require_relative 'lib/notion_capture'
-
     NotionCapture.run
-
     puts 'Successfully kicked off Notion capture jobs.'
   end
 end
