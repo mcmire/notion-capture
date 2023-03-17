@@ -43,13 +43,7 @@ module NotionCapture
             .expand_path(__dir__)
         screenshot_file.parent.mkpath
         driver.save_screenshot(screenshot_file)
-        raise(
-          "#{error.class}: #{error.message}.\n\n" +
-            'This is probably the result of a rate limiting issue. A ' +
-            "screenshot has been saved to #{screenshot_file} so you can " +
-            "verify. Unfortunately there's no way to get around this right " +
-            "now — you'll just have to wait.",
-        )
+        raise "#{error.class}: #{error.message}.\n\nA screenshot has been saved to #{screenshot_file} so you can take a closer look."
       end
 
       def ensure_logged_out
@@ -73,6 +67,16 @@ module NotionCapture
           :xpath,
           ".//div[@role='button'][contains(text(), 'Continue with password')]",
         ).click
+
+        begin
+          driver.find_element(
+            :xpath,
+            ".//*[contains(text(), 'Please try again')]",
+          )
+          raise "Notion has likely detected a high amount of traffic and is preventing us from logging in. We'll try again later."
+        rescue Selenium::WebDriver::Error::NoSuchElementError
+          # okay, no problem
+        end
       end
 
       def capture_token
