@@ -83,13 +83,18 @@ module NotionCapture
           NotionCollectionView.new(
             id: notion_collection_view_id,
             request_data:
-              Notion.client.fetch_collection_view!(
+              notion_client.fetch_collection_view!(
                 id: notion_collection_view_id,
                 collection_id: notion_collection_id,
               ),
             parent_page_lineage: parent_page_lineage,
             space_id: notion_space_id,
           )
+      end
+
+      def notion_client
+        @_notion_client ||=
+          Notion::Client.new(Notion::Authenticator.new(Notion::TOKEN_FILE))
       end
     end
   end

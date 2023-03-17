@@ -24,12 +24,16 @@ module NotionCapture
 
       def notion_spaces
         @notion_spaces ||=
-          Notion
-            .client
+          notion_client
             .fetch_spaces!
             .fetch(Notion::USER_ID)
             .fetch('space')
             .map { |space_id, data| NotionSpace.new(space_id, data) }
+      end
+
+      def notion_client
+        @_notion_client ||=
+          Notion::Client.new(Notion::Authenticator.new(Notion::TOKEN_FILE))
       end
     end
   end
