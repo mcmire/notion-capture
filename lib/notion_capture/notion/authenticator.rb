@@ -33,20 +33,9 @@ module NotionCapture
       end
 
       def log_in_to_notion_and_capture_token
-        driver.manage.timeouts.implicit_wait = 3
-        driver.navigate.to 'https://www.notion.so/login'
-        driver.find_element(:css, "input[type='email']").send_keys(EMAIL)
-        driver.find_element(
-          :xpath,
-          ".//div[@role='button'][contains(text(), 'Continue with email')]",
-        ).click
-        driver.find_element(:css, "input[type='password']").send_keys(PASSWORD)
-        driver.find_element(
-          :xpath,
-          ".//div[@role='button'][contains(text(), 'Continue with password')]",
-        ).click
-        driver.find_element(:css, '.notion-sidebar-switcher')
-        driver.manage.cookie_named('token_v2').fetch(:value)
+        ensure_logged_out
+        log_in
+        capture_token
       rescue Selenium::WebDriver::Error::NoSuchElementError => error
         screenshot_file =
           Pathname
@@ -63,6 +52,34 @@ module NotionCapture
         )
       end
 
+      def ensure_logged_out
+        driver.navigate.to 'https://www.notion.so/logout'
+        driver.find_element(:xpath, ".//div[contains(text(), 'Log in')]")
+        driver.find_element(
+          :xpath,
+          ".//a[@href='/signup'][contains(text(), 'Get Notion free')]",
+        )
+      end
+
+      def log_in
+        driver.navigate.to 'https://www.notion.so/login'
+        driver.find_element(:css, "input[type='email']").send_keys(EMAIL)
+        driver.find_element(
+          :xpath,
+          ".//div[@role='button'][contains(text(), 'Continue with email')]",
+        ).click
+        driver.find_element(:css, "input[type='password']").send_keys(PASSWORD)
+        driver.find_element(
+          :xpath,
+          ".//div[@role='button'][contains(text(), 'Continue with password')]",
+        ).click
+      end
+
+      def capture_token
+        driver.find_element(:css, '.notion-sidebar-switcher')
+        driver.manage.cookie_named('token_v2').fetch(:value)
+      end
+
       def driver
         @selenium_driver ||=
           begin
@@ -71,7 +88,9 @@ module NotionCapture
             end
             Webdrivers::Chromedriver.update
 
-            Selenium::WebDriver.for(:chrome, options: chrome_options)
+            Selenium::WebDriver
+              .for(:chrome, options: chrome_options)
+              .tap { |driver| driver.manage.timeouts.implicit_wait = 3 }
           end
       end
 
