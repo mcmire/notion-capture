@@ -61,7 +61,9 @@ module NotionCapture
             path: '/getBacklinksForBlock',
             options: {
               json: {
-                blockId: page_id,
+                block: {
+                  id: page_id,
+                },
               },
             },
             authenticator: authenticator,

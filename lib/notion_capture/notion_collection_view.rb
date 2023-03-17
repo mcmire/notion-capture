@@ -59,6 +59,7 @@ module NotionCapture
     end
 
     def collection_views_by_id
+      # TODO: This doesn't exist anymore
       @collection_views_by_id ||= records_by_type.fetch('collection_view')
     end
 

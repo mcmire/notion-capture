@@ -80,13 +80,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                               title: 'Joe',
                             ),
                           ),
-                        'collection_view' =>
-                          a_hash_including(
-                            hash_with_collection_view(
-                              id: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
-                              name: 'Default view',
-                            ),
-                          ),
+                        # 'collection_view' =>
+                        # a_hash_including(
+                        # hash_with_collection_view(
+                        # id: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
+                        # name: 'Default view',
+                        # ),
+                        # ),
                         'collection' =>
                           a_hash_including(
                             hash_with_collection(
@@ -121,13 +121,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                               title: 'Sally',
                             ),
                           ),
-                        'collection_view' =>
-                          a_hash_including(
-                            hash_with_collection_view(
-                              id: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
-                              name: 'Default view',
-                            ),
-                          ),
+                        # 'collection_view' =>
+                        # a_hash_including(
+                        # hash_with_collection_view(
+                        # id: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
+                        # name: 'Default view',
+                        # ),
+                        # ),
                         'collection' =>
                           a_hash_including(
                             hash_with_collection(
@@ -162,13 +162,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                               title: 'Steve',
                             ),
                           ),
-                        'collection_view' =>
-                          a_hash_including(
-                            hash_with_collection_view(
-                              id: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
-                              name: 'Default view',
-                            ),
-                          ),
+                        # 'collection_view' =>
+                        # a_hash_including(
+                        # hash_with_collection_view(
+                        # id: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
+                        # name: 'Default view',
+                        # ),
+                        # ),
                         'collection' =>
                           a_hash_including(
                             hash_with_collection(
@@ -226,13 +226,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                                   name: 'Test subtable',
                                 ),
                               ),
-                            'collection_view' =>
-                              a_hash_including(
-                                hash_with_collection_view(
-                                  id: '80482a7b-195b-4665-82f1-0a7825e77476',
-                                  name: 'List view',
-                                ),
-                              ),
+                            # 'collection_view' =>
+                            # a_hash_including(
+                            # hash_with_collection_view(
+                            # id: '80482a7b-195b-4665-82f1-0a7825e77476',
+                            # name: 'List view',
+                            # ),
+                            # ),
                           ),
                       ),
                   },
@@ -261,13 +261,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                                   name: 'Test subtable',
                                 ),
                               ),
-                            'collection_view' =>
-                              a_hash_including(
-                                hash_with_collection_view(
-                                  id: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
-                                  name: 'Default view',
-                                ),
-                              ),
+                            # 'collection_view' =>
+                            # a_hash_including(
+                            # hash_with_collection_view(
+                            # id: 'ce55eba9-ab50-4f33-ac0d-df6ba7132973',
+                            # name: 'Default view',
+                            # ),
+                            # ),
                           ),
                       ),
                   },
@@ -664,13 +664,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                               title: 'bigkittylitter',
                             ),
                           ),
-                        'collection_view' =>
-                          a_hash_including(
-                            hash_with_collection_view(
-                              id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
-                              name: 'Default view',
-                            ),
-                          ),
+                        # 'collection_view' =>
+                        # a_hash_including(
+                        # hash_with_collection_view(
+                        # id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
+                        # name: 'Default view',
+                        # ),
+                        # ),
                         'collection' =>
                           a_hash_including(
                             hash_with_collection(
@@ -701,13 +701,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                               title: 'jonesin4sox',
                             ),
                           ),
-                        'collection_view' =>
-                          a_hash_including(
-                            hash_with_collection_view(
-                              id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
-                              name: 'Default view',
-                            ),
-                          ),
+                        # 'collection_view' =>
+                        # a_hash_including(
+                        # hash_with_collection_view(
+                        # id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
+                        # name: 'Default view',
+                        # ),
+                        # ),
                         'collection' =>
                           a_hash_including(
                             hash_with_collection(
@@ -738,13 +738,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                               title: 'applesauceman',
                             ),
                           ),
-                        'collection_view' =>
-                          a_hash_including(
-                            hash_with_collection_view(
-                              id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
-                              name: 'Default view',
-                            ),
-                          ),
+                        # 'collection_view' =>
+                        # a_hash_including(
+                        # hash_with_collection_view(
+                        # id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
+                        # name: 'Default view',
+                        # ),
+                        # ),
                         'collection' =>
                           a_hash_including(
                             hash_with_collection(
@@ -772,13 +772,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                               id: 'f124cfbb-fcc5-4129-9bc2-fdad0b135fe1',
                             ),
                           ),
-                        'collection_view' =>
-                          a_hash_including(
-                            hash_with_collection_view(
-                              id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
-                              name: 'Default view',
-                            ),
-                          ),
+                        # 'collection_view' =>
+                        # a_hash_including(
+                        # hash_with_collection_view(
+                        # id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
+                        # name: 'Default view',
+                        # ),
+                        # ),
                         'collection' =>
                           a_hash_including(
                             hash_with_collection(
@@ -811,13 +811,13 @@ RSpec.describe NotionCapture::Workers::SyncNotionPageChunkToGithubWorker do
                                   name: 'Test collection view page',
                                 ),
                               ),
-                            'collection_view' =>
-                              a_hash_including(
-                                hash_with_collection_view(
-                                  id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
-                                  name: 'Default view',
-                                ),
-                              ),
+                            # 'collection_view' =>
+                            # a_hash_including(
+                            # hash_with_collection_view(
+                            # id: '5a900c7f-a495-4a29-b403-c8ae0356bcaa',
+                            # name: 'Default view',
+                            # ),
+                            # ),
                           ),
                       ),
                   },

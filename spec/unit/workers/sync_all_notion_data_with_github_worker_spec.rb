@@ -286,13 +286,13 @@ RSpec.describe(
                   'value' => a_hash_including('id' => collection_id),
                 ),
             ),
-          'collection_view' =>
-            a_hash_including(
-              collection_view_id =>
-                a_hash_including(
-                  'value' => a_hash_including('id' => collection_view_id),
-                ),
-            ),
+          # 'collection_view' =>
+          # a_hash_including(
+          # collection_view_id =>
+          # a_hash_including(
+          # 'value' => a_hash_including('id' => collection_view_id),
+          # ),
+          # ),
         ),
     )
   end

@@ -10,7 +10,7 @@ module Specs
 
       def initialize(expected_blob_entries)
         @expected_blob_entries =
-          a_collection_containing_exactly(*expected_blob_entries)
+          expected_blob_entries.sort_by { |entry| entry[:name] }
       end
 
       def matches?(rugged_tree)
@@ -33,28 +33,26 @@ module Specs
 
       def actual_blob_entries
         @actual_blob_entries ||=
-          rugged_tree
-            .walk(:preorder)
-            .inject([]) do |array, (root, entry)|
-              if entry[:type] == :blob
-                raw_content = rugged_tree.repo.lookup(entry[:oid]).content
-                content =
-                  begin
-                    JSON.parse(raw_content)
-                  rescue JSON::ParserError
-                    raw_content
-                  end
-                array + [
-                  {
-                    name: entry[:name],
-                    path: root + entry[:name],
-                    content: content,
-                  },
-                ]
-              else
-                array
-              end
+          rugged_tree.walk(:preorder).inject([]) do |array, (root, entry)|
+            if entry[:type] == :blob
+              raw_content = rugged_tree.repo.lookup(entry[:oid]).content
+              content =
+                begin
+                  JSON.parse(raw_content)
+                rescue JSON::ParserError
+                  raw_content
+                end
+              array + [
+                {
+                  name: entry[:name],
+                  path: root + entry[:name],
+                  content: content,
+                },
+              ]
+            else
+              array
             end
+          end.sort_by { |entry| entry[:name] }
       end
     end
   end

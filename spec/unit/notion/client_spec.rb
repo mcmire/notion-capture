@@ -941,8 +941,8 @@ RSpec.describe NotionCapture::Notion::Client, vcr: true do
                 'role' => 'editor',
                 'value' => {
                   'id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
-                  'version' => 41,
-                  'name' => "Elliot's Notion",
+                  'version' => 45,
+                  'name' => 'Test Notion for notion-capture',
                   'permissions' => [
                     {
                       'role' => 'editor',
@@ -956,13 +956,14 @@ RSpec.describe NotionCapture::Notion::Client, vcr: true do
                     f124cfbb-fcc5-4129-9bc2-fdad0b135fe1
                   ],
                   'created_time' => 1_620_017_165_450,
-                  'last_edited_time' => 1_621_817_040_000,
+                  'last_edited_time' => 1_628_899_200_000,
                   'created_by_table' => 'notion_user',
                   'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
                   'last_edited_by_table' => 'notion_user',
                   'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
                   'plan_type' => 'personal',
                   'invite_link_enabled' => true,
+                  'subscription_tier' => 'free',
                 },
               },
             },
@@ -1011,14 +1012,16 @@ RSpec.describe NotionCapture::Notion::Client, vcr: true do
               'collection_group_results' => {
                 'type' => 'results',
                 'blockIds' => %w[
+                  2ec32fd1-d30a-4ae9-a79c-d4cc6aa0266a
                   42c4bd06-12ee-4808-9624-1e7e9e7f3a5f
                   9211601a-9016-484a-8313-f54a459a5a2a
-                  2ec32fd1-d30a-4ae9-a79c-d4cc6aa0266a
                 ],
-                'total' => 3,
+                'hasMore' => false,
               },
             },
+            'sizeHint' => 3,
           },
+          'collectionIds' => ['b12633f5-5288-4fd6-b7c9-e726780fa287'],
           'recordMap' => {
             'collection' => {
               'b12633f5-5288-4fd6-b7c9-e726780fa287' => {
@@ -1054,27 +1057,12 @@ RSpec.describe NotionCapture::Notion::Client, vcr: true do
                 },
               },
             },
-            'collection_view' => {
-              '80482a7b-195b-4665-82f1-0a7825e77476' => {
-                'role' => 'editor',
-                'value' => {
-                  'id' => '80482a7b-195b-4665-82f1-0a7825e77476',
-                  'version' => 1,
-                  'type' => 'list',
-                  'name' => 'List view',
-                  'parent_id' => '227fd83a-546c-48f2-abde-14a08c43faae',
-                  'parent_table' => 'block',
-                  'alive' => true,
-                  'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
-                },
-              },
-            },
             'block' => {
               '227fd83a-546c-48f2-abde-14a08c43faae' => {
                 'role' => 'editor',
                 'value' => {
                   'id' => '227fd83a-546c-48f2-abde-14a08c43faae',
-                  'version' => 16,
+                  'version' => 17,
                   'type' => 'collection_view',
                   'view_ids' => %w[
                     ce55eba9-ab50-4f33-ac0d-df6ba7132973
@@ -1091,6 +1079,13 @@ RSpec.describe NotionCapture::Notion::Client, vcr: true do
                   'last_edited_by_table' => 'notion_user',
                   'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
                   'space_id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                  'format' => {
+                    'collection_pointer' => {
+                      'id' => 'b12633f5-5288-4fd6-b7c9-e726780fa287',
+                      'table' => 'collection',
+                      'spaceId' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
+                    },
+                  },
                 },
               },
               '0ecc4427-3c80-4b97-9e70-9f35ac4c5405' => {
@@ -1268,8 +1263,8 @@ RSpec.describe NotionCapture::Notion::Client, vcr: true do
                 'role' => 'editor',
                 'value' => {
                   'id' => '9292b46f-54ab-41db-b39d-17436d8f8f14',
-                  'version' => 41,
-                  'name' => "Elliot's Notion",
+                  'version' => 45,
+                  'name' => 'Test Notion for notion-capture',
                   'permissions' => [
                     {
                       'role' => 'editor',
@@ -1283,13 +1278,14 @@ RSpec.describe NotionCapture::Notion::Client, vcr: true do
                     f124cfbb-fcc5-4129-9bc2-fdad0b135fe1
                   ],
                   'created_time' => 1_620_017_165_450,
-                  'last_edited_time' => 1_621_817_040_000,
+                  'last_edited_time' => 1_628_899_200_000,
                   'created_by_table' => 'notion_user',
                   'created_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
                   'last_edited_by_table' => 'notion_user',
                   'last_edited_by_id' => 'e5b8637d-32a4-4597-8492-652c46372480',
                   'plan_type' => 'personal',
                   'invite_link_enabled' => true,
+                  'subscription_tier' => 'free',
                 },
               },
             },

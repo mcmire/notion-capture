@@ -10,7 +10,7 @@ http_interactions:
       Accept:
       - application/json
       Cookie:
-      - token_v2=2684f261562da46992ced47050dd4b5d5445dbb3bab3245d4d0c600c0420a02f23bf2e3afd548be2ddcea78e3c2d2c8cd180e2ecfc3bb93b96bf6f70f30b0987fa7922d4ba220a14fc1f84ea0d2e
+      - token_v2=v02%3Auser_token_or_cookies%3ACdbytPSytWgFUE5zLtMidJe5mxZdfoPI6Hfo59eCLE9_bmVc0V1m918yZCRi1dYkhUophKWiZsu3QZ0PAaUAzklE3E9vf3vf2JdthuNVN52QALBXkGs3rScsc4Xx_H2B2LKP
       Connection:
       - close
       Host:
@@ -23,13 +23,23 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 28 May 2021 00:55:01 GMT
+      - Fri, 17 Mar 2023 04:25:22 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
       - chunked
       Connection:
       - close
+      Set-Cookie:
+      - __cf_bm=2RySv_2N6ysa6tkeTFb0AsGe9kzBNRYvW09BOE4CMQg-1679027122-0-AX6sEh8Q//QtP/X6Gyd52USYjAhYTj8v4tGhSLRxFUjCXxTkmVxolnCtAIA5Q+ygbjxQj7ejqnt6bTIIWOUkTQk=;
+        path=/; expires=Fri, 17-Mar-23 04:55:22 GMT; domain=.notion.so; HttpOnly;
+        Secure; SameSite=None
+      - notion_browser_id=feaf104a-5808-418d-8ecb-d6b5f6740a58; Domain=www.notion.so;
+        Path=/; Expires=Sat, 16 Mar 2024 04:25:22 GMT; Secure
+      - notion_check_cookie_consent=false; Domain=www.notion.so; Path=/; Expires=Sat,
+        18 Mar 2023 04:25:22 GMT; Secure
+      Content-Security-Policy:
+      - default-src 'none'
       X-Dns-Prefetch-Control:
       - 'off'
       X-Frame-Options:
@@ -40,101 +50,28 @@ http_interactions:
       - noopen
       X-Content-Type-Options:
       - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
+      X-Permitted-Cross-Domain-Policies:
+      - none
       Referrer-Policy:
-      - same-origin
-      Content-Security-Policy:
-      - 'script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' https://gist.github.com
-        https://apis.google.com https://api.amplitude.com https://widget.intercom.io
-        https://js.intercomcdn.com https://logs-01.loggly.com https://cdn.segment.com
-        https://analytics.pgncs.notion.so https://o324374.ingest.sentry.io https://checkout.stripe.com
-        https://js.stripe.com https://embed.typeform.com https://admin.typeform.com
-        https://public.profitwell.com js.sentry-cdn.com https://platform.twitter.com
-        https://cdn.syndication.twimg.com https://www.googletagmanager.com https://x.clearbitjs.com;
-        connect-src ''self'' https://msgstore.www.notion.so wss://msgstore.www.notion.so
-        ws://localhost:* https://notion-emojis.s3-us-west-2.amazonaws.com https://s3-us-west-2.amazonaws.com
-        https://s3.us-west-2.amazonaws.com https://notion-production-snapshots-2.s3.us-west-2.amazonaws.com
-        https: http: https://api.amplitude.com https://api.embed.ly https://js.intercomcdn.com
-        https://api-iam.intercom.io wss://nexus-websocket-a.intercom.io https://logs-01.loggly.com
-        https://api.segment.io https://api.pgncs.notion.so https://o324374.ingest.sentry.io
-        https://checkout.stripe.com https://js.stripe.com https://cdn.contentful.com
-        https://preview.contentful.com https://images.ctfassets.net https://www2.profitwell.com
-        https://api.unsplash.com https://boards-api.greenhouse.io; font-src ''self''
-        data: https://cdnjs.cloudflare.com https://js.intercomcdn.com; img-src ''self''
-        data: blob: https: https://platform.twitter.com https://syndication.twitter.com
-        https://pbs.twimg.com https://ton.twimg.com www.googletagmanager.com; style-src
-        ''self'' ''unsafe-inline'' https://cdnjs.cloudflare.com https://github.githubassets.com
-        https://platform.twitter.com https://ton.twimg.com; frame-src https: http:;
-        media-src https: http:'
-      X-Content-Security-Policy:
-      - 'script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' https://gist.github.com
-        https://apis.google.com https://api.amplitude.com https://widget.intercom.io
-        https://js.intercomcdn.com https://logs-01.loggly.com https://cdn.segment.com
-        https://analytics.pgncs.notion.so https://o324374.ingest.sentry.io https://checkout.stripe.com
-        https://js.stripe.com https://embed.typeform.com https://admin.typeform.com
-        https://public.profitwell.com js.sentry-cdn.com https://platform.twitter.com
-        https://cdn.syndication.twimg.com https://www.googletagmanager.com https://x.clearbitjs.com;
-        connect-src ''self'' https://msgstore.www.notion.so wss://msgstore.www.notion.so
-        ws://localhost:* https://notion-emojis.s3-us-west-2.amazonaws.com https://s3-us-west-2.amazonaws.com
-        https://s3.us-west-2.amazonaws.com https://notion-production-snapshots-2.s3.us-west-2.amazonaws.com
-        https: http: https://api.amplitude.com https://api.embed.ly https://js.intercomcdn.com
-        https://api-iam.intercom.io wss://nexus-websocket-a.intercom.io https://logs-01.loggly.com
-        https://api.segment.io https://api.pgncs.notion.so https://o324374.ingest.sentry.io
-        https://checkout.stripe.com https://js.stripe.com https://cdn.contentful.com
-        https://preview.contentful.com https://images.ctfassets.net https://www2.profitwell.com
-        https://api.unsplash.com https://boards-api.greenhouse.io; font-src ''self''
-        data: https://cdnjs.cloudflare.com https://js.intercomcdn.com; img-src ''self''
-        data: blob: https: https://platform.twitter.com https://syndication.twitter.com
-        https://pbs.twimg.com https://ton.twimg.com www.googletagmanager.com; style-src
-        ''self'' ''unsafe-inline'' https://cdnjs.cloudflare.com https://github.githubassets.com
-        https://platform.twitter.com https://ton.twimg.com; frame-src https: http:;
-        media-src https: http:'
-      X-Webkit-Csp:
-      - 'script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' https://gist.github.com
-        https://apis.google.com https://api.amplitude.com https://widget.intercom.io
-        https://js.intercomcdn.com https://logs-01.loggly.com https://cdn.segment.com
-        https://analytics.pgncs.notion.so https://o324374.ingest.sentry.io https://checkout.stripe.com
-        https://js.stripe.com https://embed.typeform.com https://admin.typeform.com
-        https://public.profitwell.com js.sentry-cdn.com https://platform.twitter.com
-        https://cdn.syndication.twimg.com https://www.googletagmanager.com https://x.clearbitjs.com;
-        connect-src ''self'' https://msgstore.www.notion.so wss://msgstore.www.notion.so
-        ws://localhost:* https://notion-emojis.s3-us-west-2.amazonaws.com https://s3-us-west-2.amazonaws.com
-        https://s3.us-west-2.amazonaws.com https://notion-production-snapshots-2.s3.us-west-2.amazonaws.com
-        https: http: https://api.amplitude.com https://api.embed.ly https://js.intercomcdn.com
-        https://api-iam.intercom.io wss://nexus-websocket-a.intercom.io https://logs-01.loggly.com
-        https://api.segment.io https://api.pgncs.notion.so https://o324374.ingest.sentry.io
-        https://checkout.stripe.com https://js.stripe.com https://cdn.contentful.com
-        https://preview.contentful.com https://images.ctfassets.net https://www2.profitwell.com
-        https://api.unsplash.com https://boards-api.greenhouse.io; font-src ''self''
-        data: https://cdnjs.cloudflare.com https://js.intercomcdn.com; img-src ''self''
-        data: blob: https: https://platform.twitter.com https://syndication.twitter.com
-        https://pbs.twimg.com https://ton.twimg.com www.googletagmanager.com; style-src
-        ''self'' ''unsafe-inline'' https://cdnjs.cloudflare.com https://github.githubassets.com
-        https://platform.twitter.com https://ton.twimg.com; frame-src https: http:;
-        media-src https: http:'
-      Set-Cookie:
-      - notion_browser_id=9e3f5c6d-c557-486d-86a5-f7f5b503f412; Domain=www.notion.so;
-        Path=/; Expires=Mon, 03 Feb 2053 02:41:41 GMT; Secure
+      - strict-origin-when-cross-origin
+      X-Xss-Protection:
+      - '0'
       Etag:
-      - W/"1687-WAQRrLiKq0mVtchpZA15OIMNvWE"
+      - W/"17e9-DUvGs5l6aIAUqju8SKLJoxbS0UA"
       Vary:
       - Accept-Encoding
       Cf-Cache-Status:
       - DYNAMIC
-      Cf-Request-Id:
-      - 0a5210bbb30000c7ddf93e2000000001
-      Expect-Ct:
-      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Cf-Ray:
-      - 656383d91bc9c7dd-DEN
+      - 7a9278ba59271f55-DEN
     body:
       encoding: UTF-8
-      string: '{"e5b8637d-32a4-4597-8492-652c46372480":{"notion_user":{"e5b8637d-32a4-4597-8492-652c46372480":{"role":"editor","value":{"id":"e5b8637d-32a4-4597-8492-652c46372480","version":3,"email":"elliot.winkler+notion-capture@gmail.com","given_name":"Elliot","family_name":"Winkler","onboarding_completed":true}}},"user_root":{"e5b8637d-32a4-4597-8492-652c46372480":{"role":"editor","value":{"id":"e5b8637d-32a4-4597-8492-652c46372480","version":2,"space_views":["b83a41ee-4a51-4784-aad8-a2ff0ae16163"]}}},"user_settings":{"e5b8637d-32a4-4597-8492-652c46372480":{"role":"editor","value":{"id":"e5b8637d-32a4-4597-8492-652c46372480","version":6,"settings":{"type":"personal","locale":"en-US","persona":"unfilled","team_role":"unfilled","time_zone":"America/Denver","signup_time":1620017141138,"preferred_locale":"en-US","used_desktop_web_app":true,"preferred_locale_origin":"legacy"}}}},"space_view":{"b83a41ee-4a51-4784-aad8-a2ff0ae16163":{"role":"editor","value":{"id":"b83a41ee-4a51-4784-aad8-a2ff0ae16163","version":13,"space_id":"9292b46f-54ab-41db-b39d-17436d8f8f14","parent_id":"e5b8637d-32a4-4597-8492-652c46372480","parent_table":"user_root","alive":true,"notify_mobile":true,"notify_desktop":true,"notify_email":true,"visited_templates":["7e89f436-7aac-4f66-b0a6-6e65ec868d2a","88c9c2b0-d732-4342-8963-0580a4725571","ba43b46e-4ad3-47f7-95f0-58a3ba01476f","2dddc8c5-a711-4aa2-b5b3-ff952a49bcfa","b7572331-51ab-4ed5-a931-5a7d34b08bf0"],"sidebar_hidden_templates":["7e89f436-7aac-4f66-b0a6-6e65ec868d2a","88c9c2b0-d732-4342-8963-0580a4725571","ba43b46e-4ad3-47f7-95f0-58a3ba01476f","2dddc8c5-a711-4aa2-b5b3-ff952a49bcfa","b7572331-51ab-4ed5-a931-5a7d34b08bf0"],"created_getting_started":true,"created_onboarding_templates":true,"joined":true}}},"space":{"9292b46f-54ab-41db-b39d-17436d8f8f14":{"role":"editor","value":{"id":"9292b46f-54ab-41db-b39d-17436d8f8f14","version":41,"name":"Elliot''s
-        Notion","permissions":[{"role":"editor","type":"user_permission","user_id":"e5b8637d-32a4-4597-8492-652c46372480"}],"beta_enabled":false,"pages":["722ba1ef-e17a-4175-90c6-dd123ddf11d4","f124cfbb-fcc5-4129-9bc2-fdad0b135fe1"],"created_time":1620017165450,"last_edited_time":1621817040000,"created_by_table":"notion_user","created_by_id":"e5b8637d-32a4-4597-8492-652c46372480","last_edited_by_table":"notion_user","last_edited_by_id":"e5b8637d-32a4-4597-8492-652c46372480","plan_type":"personal","invite_link_enabled":true}}},"block":{"722ba1ef-e17a-4175-90c6-dd123ddf11d4":{"role":"editor","value":{"id":"722ba1ef-e17a-4175-90c6-dd123ddf11d4","version":66,"type":"page","properties":{"title":[["Test
-        page"]]},"content":["483d525b-cba6-4bdb-8186-01c4d6e00bee","7ff62e3e-9299-4909-b970-6934358d75f6","5b90ba9c-a3a0-40fe-888e-2b959b93ec27","77dfebcc-38c4-47dd-854a-e2e97689e267","0a3f2184-3980-4439-b60c-f666af3eefed","1036c7b3-9df5-4023-8024-813b263d3666","2806e26b-a025-4edd-a011-60d80a66124e","77eafb0f-5099-4426-abfb-9d793f8fdfbc","ab149808-a0ac-47f6-a5f8-721c7337d60d","8b69445d-7391-4b1d-ad7c-efa58ec8dce4","6e9fff9e-1888-4e1f-a4ba-eda709143bd5","af89b008-da3c-4813-bdaf-b45cab2f056e","f1e8cb34-b658-49e4-92ba-e6e4423cb500","dbdad1f7-e4c9-4c73-8bab-0d9dab41050f","6a8e38e5-9f08-4a01-9378-cb2e24137c3d","8f237735-7d82-486f-a520-923f617101fe","a80b0b66-5200-49b8-abf2-488a0ca0235b","a095b789-2b85-4fd5-bec6-cb24cdc7780a","14013023-9508-4655-9c87-827a25870fff","6e5cb4e5-d110-4026-ba9c-bd334c7227dd","0f53c1a3-fd68-4660-ace0-0fc46a6c601b","12acc71c-9f64-45b8-bfe2-a5afe4403d75","9f69c2de-1c06-4aae-a86a-c1ff1ee59e5a","fe11635f-26c1-454f-9827-503ba9c4fab3","716320fe-5104-4621-a302-c3dadb749b56","01706360-846a-493d-9ee2-932aef1b4afc","bce29ca1-6c65-40bb-91fc-b09abe1955ed","a4b87d39-ad13-4167-801c-609dff8c05a1","bf826320-91de-4371-a485-49ecae52a1a4","565533fc-fa28-4a9e-856c-fe9fe26f4473","beaf63c8-e288-4d24-a516-b96088589a71","d9a36e8a-d45b-4449-852b-7a94ddada603","9998b039-5612-4121-8101-7ea124b9507e","94bd37b0-4bdc-4bc5-a18a-66881e687d13","c025724a-f9e9-4721-84b4-ab6a863bd3a3","977b83a9-1b1e-4739-8234-2f6006e54e53","0ecc4427-3c80-4b97-9e70-9f35ac4c5405"],"permissions":[{"role":"editor","type":"user_permission","user_id":"e5b8637d-32a4-4597-8492-652c46372480"}],"created_time":1620105900000,"last_edited_time":1621817040000,"parent_id":"9292b46f-54ab-41db-b39d-17436d8f8f14","parent_table":"space","alive":true,"created_by_table":"notion_user","created_by_id":"e5b8637d-32a4-4597-8492-652c46372480","last_edited_by_table":"notion_user","last_edited_by_id":"e5b8637d-32a4-4597-8492-652c46372480","space_id":"9292b46f-54ab-41db-b39d-17436d8f8f14"}},"f124cfbb-fcc5-4129-9bc2-fdad0b135fe1":{"role":"editor","value":{"id":"f124cfbb-fcc5-4129-9bc2-fdad0b135fe1","version":18,"type":"collection_view_page","view_ids":["5a900c7f-a495-4a29-b403-c8ae0356bcaa"],"collection_id":"516b47c8-a1ab-48a0-a17b-1dafd3e06009","permissions":[{"role":"editor","type":"user_permission","user_id":"e5b8637d-32a4-4597-8492-652c46372480"}],"created_time":1621810133775,"last_edited_time":1622006040000,"parent_id":"9292b46f-54ab-41db-b39d-17436d8f8f14","parent_table":"space","alive":true,"created_by_table":"notion_user","created_by_id":"e5b8637d-32a4-4597-8492-652c46372480","last_edited_by_table":"notion_user","last_edited_by_id":"e5b8637d-32a4-4597-8492-652c46372480","space_id":"9292b46f-54ab-41db-b39d-17436d8f8f14"}}},"collection":{"516b47c8-a1ab-48a0-a17b-1dafd3e06009":{"role":"editor","value":{"id":"516b47c8-a1ab-48a0-a17b-1dafd3e06009","version":46,"name":[["Test
+      string: '{"e5b8637d-32a4-4597-8492-652c46372480":{"notion_user":{"e5b8637d-32a4-4597-8492-652c46372480":{"role":"editor","value":{"id":"e5b8637d-32a4-4597-8492-652c46372480","version":4,"email":"elliot.winkler+notion-capture@gmail.com","given_name":"Elliot","family_name":"Winkler","onboarding_completed":true,"name":"Elliot
+        Winkler"}}},"user_root":{"e5b8637d-32a4-4597-8492-652c46372480":{"role":"editor","value":{"id":"e5b8637d-32a4-4597-8492-652c46372480","version":3,"space_views":["b83a41ee-4a51-4784-aad8-a2ff0ae16163"],"space_view_pointers":[{"id":"b83a41ee-4a51-4784-aad8-a2ff0ae16163","table":"space_view","spaceId":"9292b46f-54ab-41db-b39d-17436d8f8f14"}]}}},"user_settings":{"e5b8637d-32a4-4597-8492-652c46372480":{"role":"editor","value":{"id":"e5b8637d-32a4-4597-8492-652c46372480","version":6,"settings":{"type":"personal","locale":"en-US","persona":"unfilled","team_role":"unfilled","time_zone":"America/Denver","signup_time":1620017141138,"preferred_locale":"en-US","used_desktop_web_app":true,"preferred_locale_origin":"legacy"}}}},"space_view":{"b83a41ee-4a51-4784-aad8-a2ff0ae16163":{"role":"editor","value":{"id":"b83a41ee-4a51-4784-aad8-a2ff0ae16163","version":13,"space_id":"9292b46f-54ab-41db-b39d-17436d8f8f14","parent_id":"e5b8637d-32a4-4597-8492-652c46372480","parent_table":"user_root","alive":true,"notify_mobile":true,"notify_desktop":true,"notify_email":true,"visited_templates":["7e89f436-7aac-4f66-b0a6-6e65ec868d2a","88c9c2b0-d732-4342-8963-0580a4725571","ba43b46e-4ad3-47f7-95f0-58a3ba01476f","2dddc8c5-a711-4aa2-b5b3-ff952a49bcfa","b7572331-51ab-4ed5-a931-5a7d34b08bf0"],"sidebar_hidden_templates":["7e89f436-7aac-4f66-b0a6-6e65ec868d2a","88c9c2b0-d732-4342-8963-0580a4725571","ba43b46e-4ad3-47f7-95f0-58a3ba01476f","2dddc8c5-a711-4aa2-b5b3-ff952a49bcfa","b7572331-51ab-4ed5-a931-5a7d34b08bf0"],"created_getting_started":true,"created_onboarding_templates":true,"joined":true}}},"space":{"9292b46f-54ab-41db-b39d-17436d8f8f14":{"role":"editor","value":{"id":"9292b46f-54ab-41db-b39d-17436d8f8f14","version":45,"name":"Test
+        Notion for notion-capture","permissions":[{"role":"editor","type":"user_permission","user_id":"e5b8637d-32a4-4597-8492-652c46372480"}],"beta_enabled":false,"pages":["722ba1ef-e17a-4175-90c6-dd123ddf11d4","f124cfbb-fcc5-4129-9bc2-fdad0b135fe1"],"created_time":1620017165450,"last_edited_time":1628899200000,"created_by_table":"notion_user","created_by_id":"e5b8637d-32a4-4597-8492-652c46372480","last_edited_by_table":"notion_user","last_edited_by_id":"e5b8637d-32a4-4597-8492-652c46372480","plan_type":"personal","invite_link_enabled":true,"subscription_tier":"free"}}},"block":{"f124cfbb-fcc5-4129-9bc2-fdad0b135fe1":{"role":"editor","value":{"id":"f124cfbb-fcc5-4129-9bc2-fdad0b135fe1","version":19,"type":"collection_view_page","view_ids":["5a900c7f-a495-4a29-b403-c8ae0356bcaa"],"collection_id":"516b47c8-a1ab-48a0-a17b-1dafd3e06009","format":{"collection_pointer":{"id":"516b47c8-a1ab-48a0-a17b-1dafd3e06009","table":"collection","spaceId":"9292b46f-54ab-41db-b39d-17436d8f8f14"}},"permissions":[{"role":"editor","type":"user_permission","user_id":"e5b8637d-32a4-4597-8492-652c46372480"}],"created_time":1621810133775,"last_edited_time":1622006040000,"parent_id":"9292b46f-54ab-41db-b39d-17436d8f8f14","parent_table":"space","alive":true,"created_by_table":"notion_user","created_by_id":"e5b8637d-32a4-4597-8492-652c46372480","last_edited_by_table":"notion_user","last_edited_by_id":"e5b8637d-32a4-4597-8492-652c46372480","space_id":"9292b46f-54ab-41db-b39d-17436d8f8f14"}},"722ba1ef-e17a-4175-90c6-dd123ddf11d4":{"role":"editor","value":{"id":"722ba1ef-e17a-4175-90c6-dd123ddf11d4","version":66,"type":"page","properties":{"title":[["Test
+        page"]]},"content":["483d525b-cba6-4bdb-8186-01c4d6e00bee","7ff62e3e-9299-4909-b970-6934358d75f6","5b90ba9c-a3a0-40fe-888e-2b959b93ec27","77dfebcc-38c4-47dd-854a-e2e97689e267","0a3f2184-3980-4439-b60c-f666af3eefed","1036c7b3-9df5-4023-8024-813b263d3666","2806e26b-a025-4edd-a011-60d80a66124e","77eafb0f-5099-4426-abfb-9d793f8fdfbc","ab149808-a0ac-47f6-a5f8-721c7337d60d","8b69445d-7391-4b1d-ad7c-efa58ec8dce4","6e9fff9e-1888-4e1f-a4ba-eda709143bd5","af89b008-da3c-4813-bdaf-b45cab2f056e","f1e8cb34-b658-49e4-92ba-e6e4423cb500","dbdad1f7-e4c9-4c73-8bab-0d9dab41050f","6a8e38e5-9f08-4a01-9378-cb2e24137c3d","8f237735-7d82-486f-a520-923f617101fe","a80b0b66-5200-49b8-abf2-488a0ca0235b","a095b789-2b85-4fd5-bec6-cb24cdc7780a","14013023-9508-4655-9c87-827a25870fff","6e5cb4e5-d110-4026-ba9c-bd334c7227dd","0f53c1a3-fd68-4660-ace0-0fc46a6c601b","12acc71c-9f64-45b8-bfe2-a5afe4403d75","9f69c2de-1c06-4aae-a86a-c1ff1ee59e5a","fe11635f-26c1-454f-9827-503ba9c4fab3","716320fe-5104-4621-a302-c3dadb749b56","01706360-846a-493d-9ee2-932aef1b4afc","bce29ca1-6c65-40bb-91fc-b09abe1955ed","a4b87d39-ad13-4167-801c-609dff8c05a1","bf826320-91de-4371-a485-49ecae52a1a4","565533fc-fa28-4a9e-856c-fe9fe26f4473","beaf63c8-e288-4d24-a516-b96088589a71","d9a36e8a-d45b-4449-852b-7a94ddada603","9998b039-5612-4121-8101-7ea124b9507e","94bd37b0-4bdc-4bc5-a18a-66881e687d13","c025724a-f9e9-4721-84b4-ab6a863bd3a3","977b83a9-1b1e-4739-8234-2f6006e54e53","0ecc4427-3c80-4b97-9e70-9f35ac4c5405"],"permissions":[{"role":"editor","type":"user_permission","user_id":"e5b8637d-32a4-4597-8492-652c46372480"}],"created_time":1620105900000,"last_edited_time":1621817040000,"parent_id":"9292b46f-54ab-41db-b39d-17436d8f8f14","parent_table":"space","alive":true,"created_by_table":"notion_user","created_by_id":"e5b8637d-32a4-4597-8492-652c46372480","last_edited_by_table":"notion_user","last_edited_by_id":"e5b8637d-32a4-4597-8492-652c46372480","space_id":"9292b46f-54ab-41db-b39d-17436d8f8f14"}}},"collection":{"516b47c8-a1ab-48a0-a17b-1dafd3e06009":{"role":"editor","value":{"id":"516b47c8-a1ab-48a0-a17b-1dafd3e06009","version":46,"name":[["Test
         collection view page"]],"schema":{"VXY@":{"name":"Date joined","type":"date"},"{jh?":{"name":"Email","type":"email"},"title":{"name":"Username","type":"title"}},"parent_id":"f124cfbb-fcc5-4129-9bc2-fdad0b135fe1","parent_table":"block","alive":true,"migrated":true,"space_id":"9292b46f-54ab-41db-b39d-17436d8f8f14"}}}}}'
-  recorded_at: Fri, 28 May 2021 00:55:01 GMT
-recorded_with: VCR 6.0.0
+  recorded_at: Fri, 17 Mar 2023 04:25:22 GMT
+recorded_with: VCR 6.1.0
