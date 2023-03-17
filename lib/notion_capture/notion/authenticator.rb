@@ -81,7 +81,7 @@ module NotionCapture
       end
 
       def driver
-        @selenium_driver ||=
+        @driver ||=
           begin
             if ENV.include?('GOOGLE_CHROME_SHIM')
               Selenium::WebDriver::Chrome.path = ENV['GOOGLE_CHROME_SHIM']
@@ -106,7 +106,10 @@ module NotionCapture
 
         Selenium::WebDriver::Chrome::Options
           .new(**opts)
-          .tap { |options| options.add_argument('--headless=new') }
+          .tap do |options|
+            options.add_argument('--headless=new')
+            options.add_argument('--disable-dev-shm-usage')
+          end
       end
     end
   end
